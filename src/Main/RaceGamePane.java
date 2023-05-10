@@ -1,42 +1,39 @@
 package Main;
 
 import Input.KeyboardInput;
-import Input.MouseClickInput;
-import Input.MouseMoveInput;
 import entities.Character;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+import java.io.FileNotFoundException;
+import java.util.Objects;
+
 public class RaceGamePane extends Pane implements Runnable {
 
+    private final int FPS_SET = 1;
     private Thread thread;
-
-    private final int FPS_SET = 120;
-
     private Character character;
 
     public RaceGamePane() {
-        setWidth(700);
-        setHeight(700);
-
+        getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+        setWidth(768);
+        setHeight(768);
         setOnKeyPressed(new KeyboardInput(this));
-        setOnMouseClicked(new MouseClickInput(this));
-        setOnMouseMoved(new MouseMoveInput(this));
-
-        character = new Character("Mario", 1, this);
-
         thread = new Thread(this);
         thread.start();
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
 
     @Override
     public void run() {
-        double timePerFrame = 100000000.0 / FPS_SET;
         long lastFrame = System.nanoTime();
 
         while (true) {
-            if (System.nanoTime() - lastFrame >= timePerFrame) {
+            if (System.nanoTime() - lastFrame >= FPS_SET) {
                 paintComponent();
             }
         }
@@ -46,7 +43,7 @@ public class RaceGamePane extends Pane implements Runnable {
         character.draw();
     }
 
-    public void keyPressed(KeyEvent keyEvent){
+    public void keyPressed(KeyEvent keyEvent) throws FileNotFoundException {
         character.keyPressed(keyEvent);
     }
 }
