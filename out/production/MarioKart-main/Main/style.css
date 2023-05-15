@@ -81,13 +81,6 @@
     -fx-font-size: 1.1em;
 }
 
-.root{
--fx-background-image: url("File:resources/raceColors1.png");
-    -fx-background-repeat: stretch;
-        -fx-background-position: center center;
-            -fx-background-size:  100% auto;
-}
-
 #StartPane{
 
     -fx-background-image: url("File:resources/MarioStartScreen.png");

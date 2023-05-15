@@ -8,10 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import map.Map;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,11 +63,16 @@ public class SceneController {
 
     public void SwitchToGameScene(ActionEvent event) {
         nextScreenAudio.play();
-        if(character == null){
+
+        Map map = new Map();
+
+        if (character == null) {
             character = new Character("Mario", 1);
         }
 
         var root = new RaceGamePane();
+        root.setMap(map);
+        root.getChildren().addAll(map.getTileMap());
         root.setCharacter(character);
         root.getChildren().add(character.getImageView());
 
@@ -74,16 +82,17 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
         root.requestFocus();
+
     }
 
     @FXML
-    void SelectCharacter1(ActionEvent event){
+    void SelectCharacter1(ActionEvent event) {
         selectAudio.play();
         character = new Character("Mario", 1);
     }
 
     @FXML
-    void SelectCharacter2(ActionEvent event){
+    void SelectCharacter2(ActionEvent event) {
         selectAudio.play();
         character = new Character("Luigi", 2);
     }
@@ -95,19 +104,19 @@ public class SceneController {
     }
 
     @FXML
-    void SelectCharacter4(ActionEvent event){
+    void SelectCharacter4(ActionEvent event) {
         selectAudio.play();
         character = new Character("Yoshi", 4);
     }
 
     @FXML
-    void SelectCharacter5(ActionEvent event){
+    void SelectCharacter5(ActionEvent event) {
         selectAudio.play();
         character = new Character("Peach", 5);
     }
 
     @FXML
-    void SelectCharacter6(ActionEvent event){
+    void SelectCharacter6(ActionEvent event) {
         selectAudio.play();
         character = new Character("Bowser", 6);
     }
