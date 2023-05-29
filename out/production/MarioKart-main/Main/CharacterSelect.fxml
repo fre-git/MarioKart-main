@@ -36,7 +36,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="ButtonStartRace" layoutX="289.0" layoutY="605.0" mnemonicParsing="false" onAction="#SwitchToGameScene" prefHeight="25.0" prefWidth="190.0" text="Start Race" textFill="#b20404">
+      <Button fx:id="ButtonStartRace" layoutX="289.0" layoutY="605.0" mnemonicParsing="false" onAction="#switchToGameScene" prefHeight="25.0" prefWidth="190.0" text="Start Race" textFill="#b20404">
          <font>
             <Font size="30.0" />
          </font>

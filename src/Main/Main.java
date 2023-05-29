@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("StartMenu.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StartMenu.fxml")));
             Scene scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
             stage.setScene(scene);
@@ -25,17 +25,4 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-    /*
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        RaceGamePane raceGamePane = new RaceGamePane();
-        Scene scene = new Scene(raceGamePane, 1200, 1200);
-        stage.setScene(scene);
-        stage.show();
-        raceGamePane.requestFocus();
-    }
-
-     */
 }

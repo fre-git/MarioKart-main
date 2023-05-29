@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
@@ -15,18 +16,19 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SceneController {
-    //    private Parent root;
-    //RaceGamePane pane;
     Character character;
+    AudioClip AudioSelect = new AudioClip(new File("resources/audio/selectSomething.mp3").toURI().toString());
+    AudioClip AudioNextScreen = new AudioClip(new File("resources/audio/nextScreen.mp3").toURI().toString());
+    Text velocityTextField;
+    Map map;
     private Stage stage;
+
+
     private Scene scene;
-
-    AudioClip selectAudio = new AudioClip(new File("resources/audio/selectSomething.mp3").toURI().toString());
-    AudioClip nextScreenAudio = new AudioClip(new File("resources/audio/nextScreen.mp3").toURI().toString());
-
     @FXML
     private AnchorPane CharacterSelectPane;
     @FXML
@@ -46,8 +48,12 @@ public class SceneController {
     @FXML
     private Button Button6;
 
+    public Scene getScene() {
+        return scene;
+    }
+
     public void SwitchToCharacterSelect(ActionEvent event) throws IOException {
-        nextScreenAudio.play();
+        AudioNextScreen.play();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("CharacterSelect.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 768, 768);
@@ -58,57 +64,69 @@ public class SceneController {
         stage.show();
     }
 
-    public void SwitchToGameScene(ActionEvent event) {
-        nextScreenAudio.play();
-        if(character == null){
-            character = new Character("Mario", 1);
-        }
-
-        var root = new RaceGamePane();
-        root.setCharacter(character);
-        root.getChildren().add(character.getImageView());
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 768, 768);
-
-        stage.setScene(scene);
-        stage.show();
-        root.requestFocus();
-    }
-
     @FXML
-    void SelectCharacter1(ActionEvent event){
-        selectAudio.play();
+    void SelectCharacter1() {
+        AudioSelect.play();
         character = new Character("Mario", 1);
     }
 
     @FXML
-    void SelectCharacter2(ActionEvent event){
-        selectAudio.play();
+    void SelectCharacter2() {
+        AudioSelect.play();
         character = new Character("Luigi", 2);
     }
 
     @FXML
-    void SelectCharacter3(ActionEvent event) {
-        selectAudio.play();
+    void SelectCharacter3() {
+        AudioSelect.play();
         character = new Character("Toad", 3);
     }
 
     @FXML
-    void SelectCharacter4(ActionEvent event){
-        selectAudio.play();
+    void SelectCharacter4() {
+        AudioSelect.play();
         character = new Character("Yoshi", 4);
     }
 
     @FXML
-    void SelectCharacter5(ActionEvent event){
-        selectAudio.play();
+    void SelectCharacter5() {
+        AudioSelect.play();
         character = new Character("Peach", 5);
     }
 
     @FXML
-    void SelectCharacter6(ActionEvent event){
-        selectAudio.play();
+    void SelectCharacter6() {
+        AudioSelect.play();
         character = new Character("Bowser", 6);
+    }
+
+    @FXML
+    void switchToGameScene(ActionEvent event){
+        AudioNextScreen.play();
+        ArrayList<String> keyPressedList = new ArrayList<>();
+        map = new Map();
+        AudioNextScreen.play();
+        if (character == null) {
+            character = new Character("Mario", 1);
+        }
+
+        var root = new RaceGamePane();
+        root.setGameLoop(new GameLoop(this, keyPressedList));
+
+        root.setMap(map);
+        root.getChildren().addAll(map.getTileMap());
+        root.setCharacter(character);
+
+        velocityTextField = new Text("");
+        velocityTextField.setX(50);
+        velocityTextField.setY(50);
+        root.getChildren().add(velocityTextField);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 768, 768);
+        stage.setScene(scene);
+
+        GameLoop gameLoop = root.getGameLoop();
+        gameLoop.start();
     }
 }

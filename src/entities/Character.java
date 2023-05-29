@@ -3,58 +3,69 @@ package entities;
 import Main.Vector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.input.KeyEvent;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class Character {
 
+    private String name;
     private Vector velocity;
     private Vector position;
+    Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
+    private Vector startPosition = new Vector(70, 70);
     private double rotation;
-    private String name;
+    private int characterSize = 32;
+    private Image image;
     private ImageView imageView;
 
-    public Character(String name, int image) {
+
+    public Character(String name, int characterImage) {
         this.name = name;
         this.rotation = 0;
         this.velocity = new Vector();
-        this.position = new Vector(50, 50);
-
-        Image image1 = switch (image) {
-            case 1 -> new Image("File:resources/Mario.png", 64, 64, false, false);
-            case 2 -> new Image("File:resources/Luigi.png", 64, 64, false, false);
-            case 3 -> new Image("File:resources/Toad.png", 64, 64, false, false);
-            case 4 -> new Image("File:resources/Yoshi.png", 64, 64, false, false);
-            case 5 -> new Image("File:resources/Peach.png", 64, 64, false, false);
-            case 6 -> new Image("File:resources/Bowser.png", 64, 64, false, false);
-            default -> new Image("File:resources/Mario.png", 64, 64, false, false);
-        };
-        imageView = new ImageView(image1);
-        this.draw();
-
-
-            /*
-        if (image == 1) {
-            this.image = new Image("File:resources/Mario.png", 128,128,false,false);
-        } else {
-            this.image = new Image("File:resources/Luigi.png", 128,128,false,false);
-        }
+        this.position = startPosition;
+        this.image = new Image(getImageResource(characterImage), characterSize, characterSize, false, false);
         imageView = new ImageView(this.image);
-        this.draw();
-             */
-        //raceGamePane.getChildren().add(imageView);
     }
 
+    public String getImageResource(int characterImage) {
+        String characterImageResource;
+        switch (characterImage) {
+            case 1 -> characterImageResource = "File:resources/Mario.png";
+            case 2 -> characterImageResource = "File:resources/Luigi.png";
+            case 3 -> characterImageResource = "File:resources/Toad.png";
+            case 4 -> characterImageResource = "File:resources/Yoshi.png";
+            case 5 -> characterImageResource = "File:resources/Peach.png";
+            case 6 -> characterImageResource = "File:resources/Bowser.png";
+            default -> characterImageResource = "File:resources/Mario.png";
+        }
+        return characterImageResource;
+    }
 
-    public int getSurface() throws FileNotFoundException {
-        int halfWidth = 32;
-        FileInputStream inputstream = new FileInputStream("resources/raceColors1.png");
-        Image image = new Image(inputstream);
-        PixelReader pixelReader = image.getPixelReader();
-        return pixelReader.getColor((int) position.getX() + halfWidth, (int) position.getY() + halfWidth).hashCode();
+    //calculates points of contact from car with surface
+    public Vector[] getGridPositions() {
+        int offset = 2;
+        gridPositions[0].set(position.getX() + offset * 2, position.getY() + offset);
+        gridPositions[1].set(position.getX() + characterSize - offset * 2, position.getY() + offset);
+        gridPositions[2].set(position.getX() + characterSize / 2, position.getY() + characterSize / 2);
+
+        gridPositions[3].set(position.getX(), position.getY() + characterSize - offset);
+        gridPositions[4].set(position.getX() + characterSize, position.getY() + characterSize - offset);
+        return gridPositions;
+    }
+
+    public Vector getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(double speed) {
+        this.velocity.setLength(speed);
+    }
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation += rotation;
     }
 
     public ImageView getImageView() {
@@ -67,94 +78,7 @@ public class Character {
     }
 
     public void draw() {
-        //imageView.relocate(getxDelta(),getyDelta());
         imageView.relocate(this.position.getX(), this.position.getY());
     }
-
-    public void keyPressed(KeyEvent keyEvent) throws FileNotFoundException {
-
-        switch (keyEvent.getCode()) {
-            case DOWN -> {
-                if (this.getSurface() == -546232577) {
-                    this.velocity.setLength(-30);
-                    this.update(1 / 120.0);
-                } else if (this.getSurface() == 1790849279) {
-                    this.velocity.setLength(-60);
-                    this.update(1 / 120.0);
-                } else if (this.getSurface() == 255) {
-                    this.velocity.setLength(-250);
-                    this.update(1 / 120.0);
-                } else {
-                    this.velocity.setLength(-250);
-                    this.update(1 / 120.0);
-                }
-                this.velocity.setAngle(this.rotation);
-            }
-            case UP -> {
-                if (this.getSurface() == -546232577) {
-                    this.update(1 / 120.0);
-                    this.velocity.setLength(60);
-                } else if (this.getSurface() == 1790849279) {
-                    this.update(1 / 120.0);
-                    this.velocity.setLength(200);
-                } else if (this.getSurface() == 255) {
-                    this.update(1 / 120.0);
-                    this.velocity.setLength(500);
-                }
-                this.velocity.setAngle(this.rotation);
-            }
-            case LEFT -> {
-                this.velocity.setLength(5);
-                this.rotation -= 10;
-                imageView.setRotate(this.rotation);
-                this.update(1 / 120.0);
-            }
-            case RIGHT -> {
-                this.velocity.setLength(5);
-                this.rotation += 10;
-                imageView.setRotate(this.rotation);
-                this.update(1 / 120.0);
-            }
-        }
-    }
-
- /*
-    public void keyPressed(KeyEvent keyEvent) throws FileNotFoundException {
-
-        switch (keyEvent.getCode()) {
-            case DOWN:
-                imageView.setRotate(90);
-                yDelta += speed;
-                break;
-            case UP:
-                imageView.setRotate(-90);
-                yDelta -= speed;
-                break;
-            case LEFT:
-                imageView.setRotate(-180);
-                xDelta -= speed;
-                break;
-            case RIGHT:
-                imageView.setRotate(0);
-                xDelta += speed;
-                break;
-        }
-             */
-
-    /*
-    public int getxDelta() {
-        return xDelta;
-    }
-
-    public int getyDelta() {
-        return yDelta;
-    }
-
-
-
-    /*public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-     */
 }
+

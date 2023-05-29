@@ -1,49 +1,47 @@
 package Main;
 
-import Input.KeyboardInput;
-import entities.Character;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 
-import java.io.FileNotFoundException;
+import entities.Character;
+import javafx.scene.layout.Pane;
+import map.Map;
+
 import java.util.Objects;
 
-public class RaceGamePane extends Pane implements Runnable {
-
-    private final int FPS_SET = 1;
+public class RaceGamePane extends Pane {
+    private final int MS_PER_FRAME = 1000 / 60;
     private Thread thread;
     private Character character;
+    private GameLoop gameLoop;
+    //private KeyboardInput keyboardInput;
+    private Map map;
+
+
+    // private final ArrayList<String> keyPressedList = gameLoop.getKeyPressedList();
 
     public RaceGamePane() {
         getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         setWidth(768);
         setHeight(768);
-        setOnKeyPressed(new KeyboardInput(this));
-        thread = new Thread(this);
-        thread.start();
+        //setOnKeyPressed(new KeyboardInput(this));
+        //thread = new Thread(this);
+        //thread.start();
     }
 
     public void setCharacter(Character character) {
         this.character = character;
+        getChildren().add(character.getImageView());
     }
 
-
-    @Override
-    public void run() {
-        long lastFrame = System.nanoTime();
-
-        while (true) {
-            if (System.nanoTime() - lastFrame >= FPS_SET) {
-                paintComponent();
-            }
-        }
+    public void setMap(Map map) {
+        this.map = map;
     }
 
-    private void paintComponent() {
-        character.draw();
+    public void setGameLoop(GameLoop gameLoop) {
+        this.gameLoop = gameLoop;
     }
 
-    public void keyPressed(KeyEvent keyEvent) throws FileNotFoundException {
-        character.keyPressed(keyEvent);
+    public GameLoop getGameLoop() {
+        return gameLoop;
     }
+
 }

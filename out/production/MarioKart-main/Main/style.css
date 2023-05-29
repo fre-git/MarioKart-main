@@ -16,6 +16,15 @@
     -fx-font-size: 1.1em;
 }
 
+
+#RaceTrackSelect{
+-fx-background-image: url("File:resources/MarioStartScreen.png");
+    -fx-background-repeat: stretch;
+        -fx-background-position: center center;
+            -fx-background-size:  100% auto;
+}
+
+
 #GridCharacters{
 }
 
@@ -25,32 +34,62 @@
         -fx-background-position: center center;
             -fx-background-size:  100% auto;
 }
+/*
+#RaceTrack1{
+-fx-background-color: #555555;
+-fx-background-image: url("File:resources/backgroundpixell2FRE.png");
+        -fx-background-repeat: stretch;
+            -fx-background-position: center center;
+                -fx-background-size:  90% auto;
+}
+*/
+
+#track1{
+-fx-background-color: #555555;
+-fx-background-image: url("File:resources/track1.png");
+        -fx-background-repeat: stretch;
+            -fx-background-position: center center;
+                -fx-background-size:  90% auto;
+}
+
+#track2{
+-fx-background-color: #555555;
+-fx-background-image: url("File:resources/track2.png");
+        -fx-background-repeat: stretch;
+            -fx-background-position: center center;
+                -fx-background-size:  90% auto;
+}
 
 #Button1{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/MarioSelect.png");
         -fx-background-repeat: stretch;
             -fx-background-position: center center;
                 -fx-background-size:  90% auto;
 }
 #Button2{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/LuigiSelect.png");
        -fx-background-repeat: stretch;
            -fx-background-position: center center;
                -fx-background-size:  90% auto;
 }
 #Button3{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/ToadSelect.png");
     -fx-background-repeat: stretch;
         -fx-background-position: center center;
             -fx-background-size:  90% auto;
 }
 #Button4{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/YoshiSelect.png");
     -fx-background-repeat: stretch;
         -fx-background-position: center center;
             -fx-background-size:  90% auto;
 }
 #Button5{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/PeachSelect.png");
     -fx-background-repeat: stretch;
         -fx-background-position: center center;
@@ -58,10 +97,45 @@
 }
 
 #Button6{
+-fx-background-color: #555555;
 -fx-background-image: url("File:resources/BowserSelect.png");
     -fx-background-repeat: stretch;
         -fx-background-position: center center;
             -fx-background-size:  90% auto;
+}
+
+#ButtonSelectCharacter{
+-fx-padding: 8 15 15 15;
+
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+
+    -fx-background-radius: 8;
+
+    -fx-background-color:
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+#ButtonChooseRacer{
+-fx-padding: 8 15 15 15;
+
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+
+    -fx-background-radius: 8;
+
+    -fx-background-color:
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
 }
 
 #ButtonStartRace{
@@ -81,12 +155,14 @@
     -fx-font-size: 1.1em;
 }
 
+/*
 .root{
--fx-background-image: url("File:resources/raceColors1.png");
+-fx-background-image: url("File:resources/RacePaint.png");
     -fx-background-repeat: stretch;
         -fx-background-position: center center;
             -fx-background-size:  100% auto;
 }
+*/
 
 #StartPane{
 

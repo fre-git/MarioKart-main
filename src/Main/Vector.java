@@ -25,7 +25,6 @@ public class Vector {
         this.y = y;
     }
 
-    //
     public void add(double dx, double dy) {
         this.x += dx;
         this.y += dy;
@@ -43,8 +42,6 @@ public class Vector {
 
     public void setLength(double L) {
         double currentLength = this.getLenght();
-        //if current length is , then current angle is undefined
-        // asume current angle is 0 (pointing to the right)
 
         if (currentLength == 0) {
             this.set(L, 0);
@@ -56,16 +53,18 @@ public class Vector {
         }
     }
 
-    public double getAngle() {
-        return (Math.toDegrees(Math.atan2(this.y, this.x)));
-    }
-
     public void setAngle(double angleDegrees) {
         double length = this.getLenght();
         double angleRadians = Math.toRadians(angleDegrees);
         this.x = (length * Math.cos(angleRadians));
         this.y = (length * Math.sin(angleRadians));
     }
+
+    /*
+    public double getAngle() {
+        return (Math.toDegrees(Math.atan2(this.y, this.x)));
+    }
+     */
 }
 
 
