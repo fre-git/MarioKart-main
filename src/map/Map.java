@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Map {
     private Image map = new Image("File:resources/backgroundpixell3Colors.png");
-    private Image spriteSheet = new Image("File:resources/tilesspritesheet2Fre.png");
+    private Image spriteSheet = new Image("File:resources/tilesspritesheet3Colors.png");
 
 
     int spriteWidth = 64;
