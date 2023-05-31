@@ -12,13 +12,18 @@ class GameLoop extends AnimationTimer {
     private final SceneController sceneController;
     private final ArrayList<String> keyPressedList;
 
+    private long lastTime;
+
     public GameLoop(SceneController sceneController, ArrayList<String> keyPressedList) {
         this.sceneController = sceneController;
         this.keyPressedList = keyPressedList;
     }
 
     @Override
-    public void handle(long l) {
+    public void handle(long currentTimeNano) {
+
+        long frameDelta = currentTimeNano - lastTime;
+        lastTime = currentTimeNano;
 
         sceneController.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -40,19 +45,19 @@ class GameLoop extends AnimationTimer {
             }
         });
 
-        double deltaTime = 1 / 60f;
-        int normalSpeed = 300;
-        int backwardSpeed = 200;
+        double deltaTime = frameDelta / 600_000_000f;
+        int normalSpeed = 150 ;
+        int backwardSpeed = 100;
         //process user input
         if (keyPressedList.contains("LEFT")) {
-            sceneController.character.setRotation(-4);
+            sceneController.character.setRotation((int) (-3.5f / (1/60f) * deltaTime));
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
-            sceneController.character.setVelocity(4);
+            sceneController.character.setVelocity((int) (-3.5f / (1/60f) * deltaTime));
         }
         if (keyPressedList.contains("RIGHT")) {
-            sceneController.character.setRotation(4);
+            sceneController.character.setRotation((int) (3.5f / (1/60f) * deltaTime));
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
-            sceneController.character.setVelocity(4);
+            sceneController.character.setVelocity((int) (-3.5f / (1/60f) * deltaTime));
         }
         if (keyPressedList.contains("DOWN")) {
             sceneController.character.setVelocity(CollisionDetector.calculateCharacterSpeed(sceneController.character, sceneController.map, backwardSpeed));
@@ -71,62 +76,7 @@ class GameLoop extends AnimationTimer {
         sceneController.character.update(deltaTime);
         sceneController.character.draw();
 
-        sceneController.velocityTextField.setText(String.format("Snelheid: %.2f", sceneController.character.getVelocity().getLenght()));
+        sceneController.velocityTextField.setText(String.format("SPEED: %.2f", sceneController.character.getVelocity().getLenght()));
 
     }
-
-
-
-        /*
-
-    @Override
-    public void handle(long l) {
-        double deltaTime = 1 / 60f;
-
-        int normalSpeed = 300;
-        int speedPenaltySand = 70;
-        int speedPenaltyGrass = 65;
-
-        int backwardSpeed = 200;
-        //process user input
-        if (keyPressedList.contains("LEFT")) {
-            sceneController.character.rotation -= 4;
-            sceneController.character.getImageView().setRotate(sceneController.character.rotation);
-            sceneController.character.velocity.setLength(4);
-        }
-        if (keyPressedList.contains("RIGHT")) {
-            sceneController.character.rotation += 4;
-            sceneController.character.getImageView().setRotate(sceneController.character.rotation);
-            sceneController.character.velocity.setLength(4);
-        }
-        if (keyPressedList.contains("UP")) {
-            int gridPointsSand = sceneController.character.getSurfaceColorGrid(sandColorHashCode);
-            int gridPointsGrass = sceneController.character.getSurfaceColorGrid(grassColorHashCode);
-
-            sceneController.character.velocity.setLength(normalSpeed - gridPointsSand * speedPenaltySand - gridPointsGrass * speedPenaltyGrass);
-
-            sceneController.character.velocity.setAngle(sceneController.character.rotation);
-            sceneController.character.getImageView().setRotate(sceneController.character.rotation);
-
-        } else { // not pressing up
-            sceneController.character.velocity.setLength(0);
-        }
-
-        if (keyPressedList.contains("DOWN")) {
-            int gridPointsSand = sceneController.character.getSurfaceColorGrid(sandColorHashCode);
-            int gridPointsGrass = sceneController.character.getSurfaceColorGrid(grassColorHashCode);
-
-            sceneController.character.velocity.setLength(backwardSpeed - gridPointsSand * 48 - gridPointsGrass * 44);
-
-            sceneController.character.velocity.setAngle(sceneController.character.rotation + 180);
-            sceneController.character.getImageView().setRotate(sceneController.character.rotation);
-        }
-        sceneController.character.update(deltaTime);
-        sceneController.character.draw();
-
-        sceneController.velocityTextField.setText(String.format("Snelheid: %.2f", sceneController.character.getVelocity().getLenght()));
-
-    */
-
-
 }

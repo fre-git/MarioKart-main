@@ -4,6 +4,7 @@ import Main.Vector;
 import entities.Character;
 
 public class CollisionDetector {
+
     private static int tileSize = 64;
 
 
@@ -14,25 +15,26 @@ public class CollisionDetector {
     public static double calculateCharacterSpeed(Character character, Map map, int defaultSpeed) {
         int grassCounter = 0;
         int sandCounter = 0;
-        int speedPenaltySand = 55;
-        int speedPenaltyGrass = 45;
+        int speedPenaltySand = 28;
+        int speedPenaltyGrass = 20;
         int speed;
 
-        for(Vector gridPositon: character.getGridPositions()){
-            int tileNumber = isTileGrass((int)gridPositon.getX()/map.getSpriteWidth(),
-                    (int)gridPositon.getY()/map.getSpriteWidth(), map.getMapLayout());
+        for (Vector gridPositon : character.getGridPositions()) {
+            int tileNumber = isTileGrass((int) gridPositon.getX() / map.getSpriteWidth(),
+                (int) gridPositon.getY() / map.getSpriteWidth(), map.getMapLayout()
+            );
 
-            if(tileNumber == 0){
+            if (tileNumber == 0) {
                 grassCounter++;
-            } else if(tileNumber == 2){
+            } else if (tileNumber == 2) {
                 sandCounter++;
             }
         }
-        if(defaultSpeed == 300){
+        if (defaultSpeed == 150) {
             speed = defaultSpeed - sandCounter * speedPenaltySand - grassCounter * speedPenaltyGrass;
-        } else{
-            int backwardsSpeedPenaltySand = 38;
-            int backwardsSpeedPenaltyGrass = 30;
+        } else {
+            int backwardsSpeedPenaltySand = 19;
+            int backwardsSpeedPenaltyGrass = 14;
             speed = defaultSpeed - sandCounter * backwardsSpeedPenaltySand - grassCounter * backwardsSpeedPenaltyGrass;
         }
         return speed;

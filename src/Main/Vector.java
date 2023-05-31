@@ -30,7 +30,7 @@ public class Vector {
         this.y += dy;
     }
 
-    //scaling vector (shrink or stretching)
+    //scale vector
     public void multiply(double m) {
         this.x *= m;
         this.y *= m;
@@ -45,10 +45,8 @@ public class Vector {
 
         if (currentLength == 0) {
             this.set(L, 0);
-        } else { // able to preserve current angle
-            //scale vector to have Length 1
+        } else {
             this.multiply(1 / currentLength);
-            //scale vector to have length L
             this.multiply(L);
         }
     }
@@ -59,12 +57,6 @@ public class Vector {
         this.x = (length * Math.cos(angleRadians));
         this.y = (length * Math.sin(angleRadians));
     }
-
-    /*
-    public double getAngle() {
-        return (Math.toDegrees(Math.atan2(this.y, this.x)));
-    }
-     */
 }
 
 

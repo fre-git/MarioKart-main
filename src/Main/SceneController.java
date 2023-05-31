@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import map.Map;
 
 public class SceneController {
     Character character;
@@ -26,7 +27,6 @@ public class SceneController {
     Text velocityTextField;
     Map map;
     private Stage stage;
-
 
     private Scene scene;
     @FXML
@@ -111,11 +111,9 @@ public class SceneController {
         }
 
         var root = new RaceGamePane();
-        root.setGameLoop(new GameLoop(this, keyPressedList));
 
-        root.setMap(map);
-        root.getChildren().addAll(map.getTileMap());
-        root.setCharacter(character);
+        root.getChildren().addAll(map.getTileMap()); // view
+        root.getChildren().add(character.getImageView()); // view
 
         velocityTextField = new Text("");
         velocityTextField.setX(50);
@@ -126,7 +124,6 @@ public class SceneController {
         scene = new Scene(root, 768, 768);
         stage.setScene(scene);
 
-        GameLoop gameLoop = root.getGameLoop();
-        gameLoop.start();
+        new GameLoop(this, keyPressedList).start();
     }
 }

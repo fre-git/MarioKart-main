@@ -9,7 +9,6 @@ public class Map {
     private Image map = new Image("File:resources/backgroundpixell3Colors.png");
     private Image spriteSheet = new Image("File:resources/tilesspritesheet3Colors.png");
 
-
     int spriteWidth = 64;
     int spriteHeight = 64;
     int amountOfSprites = 3;
