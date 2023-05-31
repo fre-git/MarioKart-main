@@ -27,8 +27,8 @@ public class SceneController {
     Text velocityTextField;
     Map map;
     private Stage stage;
-
     private Scene scene;
+
     @FXML
     private AnchorPane CharacterSelectPane;
     @FXML
@@ -105,7 +105,6 @@ public class SceneController {
         AudioNextScreen.play();
         ArrayList<String> keyPressedList = new ArrayList<>();
         map = new Map();
-        AudioNextScreen.play();
         if (character == null) {
             character = new Character("Mario", 1);
         }

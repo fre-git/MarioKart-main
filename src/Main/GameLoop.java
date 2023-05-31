@@ -46,32 +46,33 @@ class GameLoop extends AnimationTimer {
         });
 
         double deltaTime = frameDelta / 600_000_000f;
-        int normalSpeed = 150 ;
-        int backwardSpeed = 100;
+
         //process user input
         if (keyPressedList.contains("LEFT")) {
-            sceneController.character.setRotation((int) (-3.5f / (1/60f) * deltaTime));
+            sceneController.character.setRotation((int) (-3f / (1/60f) * deltaTime));
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
-            sceneController.character.setVelocity((int) (-3.5f / (1/60f) * deltaTime));
+            sceneController.character.setVelocity((int) (-3f / (1/60f) * deltaTime));
         }
         if (keyPressedList.contains("RIGHT")) {
-            sceneController.character.setRotation((int) (3.5f / (1/60f) * deltaTime));
+            sceneController.character.setRotation((int) (3f / (1/60f) * deltaTime));
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
-            sceneController.character.setVelocity((int) (-3.5f / (1/60f) * deltaTime));
+            sceneController.character.setVelocity((int) (-3f / (1/60f) * deltaTime));
         }
         if (keyPressedList.contains("DOWN")) {
-            sceneController.character.setVelocity(CollisionDetector.calculateCharacterSpeed(sceneController.character, sceneController.map, backwardSpeed));
+            sceneController.character.setVelocity(CollisionDetector.calculateCharacterSpeed(sceneController.character, sceneController.map, sceneController.character.getBackwardSpeed()));
             sceneController.character.getVelocity().setAngle(sceneController.character.getRotation() + 180);
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
         }
         if (keyPressedList.contains("UP")) {
-            sceneController.character.setVelocity(CollisionDetector.calculateCharacterSpeed(sceneController.character, sceneController.map, normalSpeed));
+            sceneController.character.setVelocity(CollisionDetector.calculateCharacterSpeed(sceneController.character, sceneController.map, sceneController.character.getForwardSpeed()));
             sceneController.character.getVelocity().setAngle(sceneController.character.getRotation());
             sceneController.character.getImageView().setRotate(sceneController.character.getRotation());
 
-        } else if (!keyPressedList.contains("DOWN")) { // not pressing up
+        } else if (!keyPressedList.contains("DOWN")) { // not pressing down
             sceneController.character.setVelocity(0);
         }
+
+
 
         sceneController.character.update(deltaTime);
         sceneController.character.draw();

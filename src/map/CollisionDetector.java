@@ -30,7 +30,7 @@ public class CollisionDetector {
                 sandCounter++;
             }
         }
-        if (defaultSpeed == 150) {
+        if (defaultSpeed == character.getForwardSpeed()) {
             speed = defaultSpeed - sandCounter * speedPenaltySand - grassCounter * speedPenaltyGrass;
         } else {
             int backwardsSpeedPenaltySand = 19;

@@ -9,6 +9,8 @@ public class Character {
     private String name;
     private Vector velocity;
     private Vector position;
+    private int forwardSpeed = 150 ;
+    private int backwardSpeed = 100;
     Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
     private Vector startPosition = new Vector(70, 70);
     private double rotation;
@@ -50,6 +52,15 @@ public class Character {
         gridPositions[3].set(position.getX(), position.getY() + characterSize - offset);
         gridPositions[4].set(position.getX() + characterSize, position.getY() + characterSize - offset);
         return gridPositions;
+    }
+
+
+    public int getForwardSpeed() {
+        return forwardSpeed;
+    }
+
+    public int getBackwardSpeed() {
+        return backwardSpeed;
     }
 
     public Vector getVelocity() {
