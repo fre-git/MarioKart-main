@@ -76,7 +76,7 @@ public class RaceGamePane extends Pane implements Runnable {
             y = y / 64;
         }
         if (keyEvent.getCode() == KeyCode.RIGHT) {
-            x = Math.floor(++x / 64);
+            x = Math.ceil(++x / 64);
             y = y / 64;
         }
 
