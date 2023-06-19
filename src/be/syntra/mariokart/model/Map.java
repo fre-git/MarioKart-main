@@ -11,7 +11,7 @@ public class Map {
 
     int spriteWidth = 64;
     int spriteHeight = 64;
-    int amountOfSprites = 3;
+    int amountOfSprites = 5;
 
     private Image[] sprites = new Image[amountOfSprites];
     private int[][] mapLayout;
