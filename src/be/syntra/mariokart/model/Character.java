@@ -10,8 +10,8 @@ public class Character {
     private String name; // TODO wordt nie gebruikt
     private Vector velocity;
     private Vector position;
-    private int forwardSpeed = 120; // TODO mag final, verandert nooit
-    private int backwardSpeed = 80;
+    private final int forwardSpeed = 120;
+    private final int backwardSpeed = 80;
     private double rotation;
     private int characterSize = 40;
     private Image image;

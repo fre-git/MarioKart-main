@@ -9,7 +9,7 @@ public class SpeedCalculator {
     public static double calculateCharacterSpeed(Character character, Map map, int defaultSpeed) {
         int grassCounter = 0;
         int sandCounter = 0;
-        int speed;
+        double speed;
 
         for (Vector gridPosition : character.getGridPositions()) {
             int tileNumber = CollisionDetector.isTileGrass((int) gridPosition.getX() / map.getSpriteWidth(),
@@ -22,13 +22,15 @@ public class SpeedCalculator {
             }
         }
         if (defaultSpeed == character.getForwardSpeed()) {
-            int speedPenaltySand = 14;
-            int speedPenaltyGrass = 11;
+            double speedPenaltySand = 14;
+            double speedPenaltyGrass = 11;
             speed = defaultSpeed - sandCounter * speedPenaltySand - grassCounter * speedPenaltyGrass;
-        } else {
-            int backwardsSpeedPenaltySand = 28;
-            int backwardsSpeedPenaltyGrass = 20;
+        } else if (defaultSpeed == character.getBackwardSpeed()){
+            double backwardsSpeedPenaltySand = 9.5;
+            double backwardsSpeedPenaltyGrass = 7;
             speed = defaultSpeed - sandCounter * backwardsSpeedPenaltySand - grassCounter * backwardsSpeedPenaltyGrass;
+        } else {
+            speed = 0;
         }
         return speed;
     }

@@ -1,30 +1,34 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.view.AudioPlayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
 
-public class StartMenuController {
-    AudioPlayer audio = new AudioPlayer();
+public class GameOverController {
+    Stage stage;
+
+
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     @FXML
-    void SwitchToRacetrackSelect(ActionEvent event) throws IOException {
-        audio.playAudioNextScreen();
-
-        Parent root = FXMLLoader.load(new URL("File:resources/fxml/RacetrackSelect.fxml"));
-
-
-        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/RacetrackSelect.fxml")));
-
+    void goToStart(ActionEvent event) throws IOException {
+//        stage = new Stage();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        //controller.getStage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
         Scene scene = new Scene(root, 768, 768);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
@@ -32,5 +36,9 @@ public class StartMenuController {
         stage.show();
     }
 
+    @FXML
+    void tryAgain(ActionEvent event) {
+
+    }
 
 }

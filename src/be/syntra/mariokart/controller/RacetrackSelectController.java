@@ -30,7 +30,7 @@ public class RacetrackSelectController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 768, 768);
 
-        scene.getStylesheets().add("File:resources/css/style.css");
+        scene.getStylesheets().add("File:resources/css/Style.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -38,12 +38,12 @@ public class RacetrackSelectController {
     @FXML
     void selectTrack1() {
         audio.playAudioSelect();
-        map = new Map("File:resources/images/backgroundpixell.png");
+        map = new Map("File:resources/images/Backgroundpixell.png");
     }
 
     @FXML
     void selectTrack2() {
         audio.playAudioSelect();
-        map = new Map("File:resources/images/backgroundpixell3Colors.png");
+        map = new Map("File:resources/images/Backgroundpixell3Colors2.png");
     }
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    private Image map;
-    private Image spriteSheet = new Image("File:resources/images/tilesspritesheet3Colors.png");
+    private Image mapImage;
+    private Image spriteSheet = new Image("File:resources/images/Tilesspritesheet3Colors.png");
 
     int spriteWidth = 64;
     int spriteHeight = 64;
@@ -18,32 +18,23 @@ public class Map {
     private List<ImageView> tileMap = new ArrayList<>();
 
     public Map(String imageResource) {
-
-        if(imageResource == null){
-            map = new Image("File:resources/images/backgroundpixell.png");
-        }
-
-        map = new Image(imageResource);
-        this.mapLayout = new int[(int) map.getHeight()][(int) map.getWidth()];
+        mapImage = new Image(imageResource);
+        this.mapLayout = new int[(int) mapImage.getHeight()][(int) mapImage.getWidth()];
         generateMap();
     }
 
 
     private void generateMap() {
-        PixelReader mapReader = map.getPixelReader();
+        PixelReader mapReader = mapImage.getPixelReader();
         ImageView tile;
-
         for (int y = 0; y < mapLayout.length; y++) {
             for (int x = 0; x < mapLayout[y].length; x++) {
                 int color = mapReader.getArgb(x, y);
 
                 //?
                 int red = (color >> 16) & 0xFF;
-                if(red == 200){
-                    mapLayout[y][x] = 2;
-                } else{
-                    mapLayout[y][x] = red;
-                }
+                System.out.println(red);
+                mapLayout[y][x] = red;
             }
         }
 

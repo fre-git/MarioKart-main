@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="gameOverPane" prefHeight="768.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.syntra.mariokart.controller.GameOverController">
+   <children>
+      <Text fill="#ee0b0b" layoutX="186.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME OVER">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Text>
+      <Button fx:id="BtnTryAgain" layoutX="351.0" layoutY="556.0" mnemonicParsing="false" onAction="#tryAgain" text="Try again" />
+      <Button fx:id="BtnStartMenu" layoutX="348.0" layoutY="609.0" mnemonicParsing="false" onAction="#goToStart" text="StartMenu" />
+   </children>
+</AnchorPane>

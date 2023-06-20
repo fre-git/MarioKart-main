@@ -34,15 +34,6 @@
         -fx-background-position: center center;
             -fx-background-size:  100% auto;
 }
-/*
-#RaceTrack1{
--fx-background-color: #555555;
--fx-background-image: url("File:resources/backgroundpixell2FRE.png");
-        -fx-background-repeat: stretch;
-            -fx-background-position: center center;
-                -fx-background-size:  90% auto;
-}
-*/
 
 #track1{
 -fx-background-color: #225555;
@@ -103,7 +94,7 @@
         -fx-background-position: center center;
             -fx-background-size:  90% auto;
 }
-
+/*
 #ButtonSelectCharacter{
 -fx-padding: 8 15 15 15;
 
@@ -137,8 +128,9 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
+*/
 
-#ButtonStartRace{
+#ButtonStartRace, #ButtonChooseRacer, #ButtonSelectCharacter, #BtnTryAgain, #BtnStartMenu{
 -fx-padding: 8 15 15 15;
 
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
@@ -164,7 +156,7 @@
 }
 */
 
-#StartPane{
+#StartPane, #gameOverPane{
 
     -fx-background-image: url("File:resources/images/MarioStartScreen.png");
     -fx-background-repeat: stretch;
