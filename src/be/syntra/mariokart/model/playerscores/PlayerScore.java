@@ -1,4 +1,4 @@
-package be.syntra.mariokart.model;
+package be.syntra.mariokart.model.playerscores;
 
 public class PlayerScore {
     private String name;

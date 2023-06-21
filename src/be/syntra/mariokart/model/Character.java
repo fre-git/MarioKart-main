@@ -9,6 +9,7 @@ public class Character {
     private Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
     private String name; // TODO wordt nie gebruikt
     private Vector velocity;
+
     private Vector position;
     private final int forwardSpeed = 120;
     private final int backwardSpeed = 80;
@@ -48,6 +49,10 @@ public class Character {
 
     public void setRotation(int rotation) {
         this.rotation += rotation;
+    }
+
+    public void setPosition(Vector position) {
+        this.position = position;
     }
 
     public ImageView getImageView() {

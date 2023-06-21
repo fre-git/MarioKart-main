@@ -8,7 +8,7 @@
    <children>
       <HBox layoutX="340.0" layoutY="650.0" prefHeight="76.0" prefWidth="222.0">
          <children>
-            <Button fx:id="StartGame" mnemonicParsing="false" onAction="#SwitchToRacetrackSelect" text="Start game" textAlignment="CENTER" textFill="#b20404">
+            <Button fx:id="StartGame" mnemonicParsing="false" onAction="#switchToNextScene" text="Start game" textAlignment="CENTER" textFill="#b20404">
                <font>
                   <Font size="36.0" />
                </font>

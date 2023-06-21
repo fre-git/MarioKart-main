@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
+
 public class Main extends Application {
 
     //HELLO FROM ROCCO
@@ -16,6 +18,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             Parent root = FXMLLoader.load(new URL("File:resources/fxml/StartMenu.fxml"));
+            //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
+
 
 
 

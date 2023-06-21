@@ -1,5 +1,7 @@
 package be.syntra.mariokart.controller.gamelogic;
 
+import be.syntra.mariokart.controller.CharacterSelectController;
+import be.syntra.mariokart.controller.IController;
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
@@ -10,15 +12,15 @@ import java.util.ArrayList;
 public class GameLoop extends AnimationTimer {
 
     public static final float TURNING_SPEED = 2.5f / (1 / 60f);
-    private final be.syntra.mariokart.controller.CharacterSelectController controller;
+    private CharacterSelectController controller;
     private final ArrayList<KeyCode> keyPressedList;
     AudioPlayer audioPlayer = new AudioPlayer();
     private long lastTime;
     private long startTime = System.currentTimeMillis();
 
-    public GameLoop(be.syntra.mariokart.controller.CharacterSelectController controller, ArrayList<KeyCode> keyPressedList) {
+    public GameLoop(IController controller, ArrayList<KeyCode> keyPressedList) {
         audioPlayer.loopEngineAudio();
-        this.controller = controller;
+        this.controller = (CharacterSelectController) controller;
         this.keyPressedList = keyPressedList;
     }
 

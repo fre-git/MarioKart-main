@@ -12,7 +12,6 @@
             <Font size="72.0" />
          </font>
       </Text>
-      <Button fx:id="BtnTryAgain" layoutX="351.0" layoutY="556.0" mnemonicParsing="false" onAction="#tryAgain" text="Try again" />
-      <Button fx:id="BtnStartMenu" layoutX="348.0" layoutY="609.0" mnemonicParsing="false" onAction="#goToStart" text="StartMenu" />
+      <Button fx:id="BtnStartMenu" layoutX="348.0" layoutY="609.0" mnemonicParsing="false" onAction="#switchToNextScene" text="StartMenu" />
    </children>
 </AnchorPane>

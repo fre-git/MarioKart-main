@@ -20,10 +20,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CharacterSelectController {
+public class CharacterSelectController implements IController{
     private final AudioPlayer audio = new AudioPlayer();
     private Stage stage;
     private Scene scene;
@@ -102,7 +103,8 @@ public class CharacterSelectController {
     }
 
     @FXML
-    void switchToGameScene(ActionEvent event) throws Exception {
+    @Override
+    public void switchToNextScene(ActionEvent event) throws IOException {
         audio.playAudioNextScreen();
         ArrayList<KeyCode> keyPressedList = new ArrayList<>();
 
@@ -146,6 +148,32 @@ public class CharacterSelectController {
     public void escape() throws IOException {
         System.out.println("time: " + elapsedTimeTextField.getText());
         if(Double.valueOf(elapsedTimeTextField.getText()) < 4){
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/SavePlayerScore.fxml")));
+            scene = new Scene(root, 768, 768);
+            scene.getStylesheets().add("File:resources/css/Style.css");
+
+            //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
+            gameLoop.stop();
+
+            stage.setScene(scene);
+            stage.show();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
             System.out.println("lower as 10");
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
             Scene scene = new Scene(root, 768, 768);
@@ -154,11 +182,24 @@ public class CharacterSelectController {
 
             stage.setScene(scene);
             stage.show();
-
+*/
         } else{
+
+
+
             System.out.println("higher as 10");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameOver.fxml")));
-            Scene scene = new Scene(root, 768, 768);
+            //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameOver.fxml")));
+
+            FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/GameOver.fxml"));
+            Parent root = loader.load();
+
+
+            GameOverController gameOverController = loader.getController();
+            gameOverController.setMap(map);
+            gameOverController.setCharacter(character);
+
+
+            scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
             gameLoop.stop();

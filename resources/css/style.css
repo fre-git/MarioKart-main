@@ -130,7 +130,7 @@
 }
 */
 
-#ButtonStartRace, #ButtonChooseRacer, #ButtonSelectCharacter, #BtnTryAgain, #BtnStartMenu{
+#ButtonStartRace, #ButtonChooseRacer, #ButtonSelectCharacter, #BtnTryAgain, #BtnStartMenu, #BtnSave{
 -fx-padding: 8 15 15 15;
 
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
@@ -156,7 +156,7 @@
 }
 */
 
-#StartPane, #gameOverPane{
+#StartPane, #gameOverPane, #TopScorePane{
 
     -fx-background-image: url("File:resources/images/MarioStartScreen.png");
     -fx-background-repeat: stretch;

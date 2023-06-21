@@ -26,7 +26,7 @@
                 <Font size="36.0" />
             </font>
         </Label>
-        <Button fx:id="ButtonSelectCharacter" layoutX="260.0" layoutY="587.0" mnemonicParsing="false" onAction="#SwitchToCharacterSelect" prefHeight="65.0" prefWidth="249.0" text="Select character" textFill="#b20404">
+        <Button fx:id="ButtonSelectCharacter" layoutX="260.0" layoutY="587.0" mnemonicParsing="false" onAction="#switchToNextScene" prefHeight="65.0" prefWidth="249.0" text="Select character" textFill="#b20404">
             <font>
                 <Font size="30.0" />
             </font>
