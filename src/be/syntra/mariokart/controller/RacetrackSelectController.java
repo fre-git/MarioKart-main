@@ -62,6 +62,6 @@ public class RacetrackSelectController implements IController {
     @FXML
     void selectTrack2() {
         audio.playAudioSelect();
-        map = new Map("File:resources/images/Backgroundpixell3Colors3.png");
+        map = new Map("File:resources/images/Backgroundpixell3Colors.png");
     }
 }
