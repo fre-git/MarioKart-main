@@ -1,5 +1,6 @@
 package be.syntra.mariokart.controller;
 
+import be.syntra.mariokart.controller.gamelogic.GameLoop;
 import be.syntra.mariokart.model.Character;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.view.AudioPlayer;
@@ -19,7 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -32,8 +32,6 @@ public class CharacterSelectController {
     private Text velocityTextField;
     private Text elapsedTimeTextField;
     private GameLoop gameLoop;
-
-    GameOverController controller = new GameOverController();
 
     public Scene getScene() {
         return scene;

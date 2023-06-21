@@ -21,7 +21,6 @@ public class StartMenuController {
 
         Parent root = FXMLLoader.load(new URL("File:resources/fxml/RacetrackSelect.fxml"));
 
-
         //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/RacetrackSelect.fxml")));
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -1,6 +1,5 @@
-package be.syntra.mariokart.controller;
+package be.syntra.mariokart.controller.gamelogic;
 
-import be.syntra.mariokart.controller.CollisionDetector;
 import be.syntra.mariokart.model.Character;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.Vector;

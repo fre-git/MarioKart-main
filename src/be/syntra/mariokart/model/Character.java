@@ -21,7 +21,7 @@ public class Character {
         this.name = name;
         this.rotation = 0;
         this.velocity = new Vector();
-        this.position = new Vector(60, 60);
+        this.position = new Vector(200, 90);
         this.image = new Image(ImageSelector.getImageResource(characterImage), characterSize, characterSize, false, false);
         imageView = new ImageView(this.image);
     }

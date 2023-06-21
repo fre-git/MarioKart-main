@@ -1,4 +1,4 @@
-package be.syntra.mariokart.controller;
+package be.syntra.mariokart.controller.gamelogic;
 
 public class CollisionDetector {
 

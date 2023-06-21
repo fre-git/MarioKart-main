@@ -1,4 +1,4 @@
-package be.syntra.mariokart.controller;
+package be.syntra.mariokart.controller.gamelogic;
 
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.animation.AnimationTimer;
@@ -36,7 +36,7 @@ public class GameLoop extends AnimationTimer {
         });
 
         controller.getScene().setOnKeyReleased(keyReleased -> {
-            if (keyReleased.getCode().equals(KeyCode.UP)) {
+            if (keyReleased.getCode().equals(KeyCode.UP) || keyReleased.getCode().equals(KeyCode.DOWN)) {
                 audioPlayer.stopDrivingAudio();
             }
             keyPressedList.remove(keyReleased.getCode());

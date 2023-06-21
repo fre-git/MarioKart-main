@@ -44,6 +44,6 @@ public class RacetrackSelectController {
     @FXML
     void selectTrack2() {
         audio.playAudioSelect();
-        map = new Map("File:resources/images/Backgroundpixell3Colors2.png");
+        map = new Map("File:resources/images/Backgroundpixell3Colors.png");
     }
 }
