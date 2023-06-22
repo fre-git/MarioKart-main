@@ -4,12 +4,16 @@ import be.syntra.mariokart.view.ImageSelector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Character {
+public class PlayerCharacter {
 
+    private int passedCheckout = 0;
+    private int lapsFinished = 0;
+    private boolean isSurfacePassed = false;
+    // player position (8 points)
     private Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
-    private String name; // TODO wordt nie gebruikt
-    private Vector velocity;
 
+    private String name;
+    private Vector velocity;
     private Vector position;
     private final int forwardSpeed = 120;
     private final int backwardSpeed = 80;
@@ -18,13 +22,29 @@ public class Character {
     private Image image;
     private ImageView imageView;
 
-    public Character(String name, int characterImage) {
+    public PlayerCharacter(String name, int characterImage) {
         this.name = name;
         this.rotation = 0;
         this.velocity = new Vector();
         this.position = new Vector(200, 90);
         this.image = new Image(ImageSelector.getImageResource(characterImage), characterSize, characterSize, false, false);
         imageView = new ImageView(this.image);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean getSurfacePassed() {
+        return isSurfacePassed;
+    }
+
+    public void setSurfacePassed(boolean surfacePassed) {
+        isSurfacePassed = surfacePassed;
+    }
+
+    public Vector getPosition() {
+        return position;
     }
 
     public int getForwardSpeed() {
@@ -65,10 +85,32 @@ public class Character {
         this.position.add(this.velocity.getX() * deltaTime, this.velocity.getY() * deltaTime);
     }
 
+    //draw the imageView of the playerCharacter on the updated position
     public void draw() {
         imageView.relocate(this.position.getX(), this.position.getY());
     }
 
+    public int getAmountOfCheckPointsPassed() {
+        return passedCheckout;
+    }
+
+    public void bumpCheckpointsPassed() {
+        this.passedCheckout++;
+    }
+
+    public void resetCheckpoints(){
+        this.passedCheckout = 0;
+    }
+
+    public int getLapsFinished() {
+        return lapsFinished;
+    }
+
+    public void bumpLapFinished() {
+        this.lapsFinished++;
+    }
+
+    // get 8 vectors (positions) that represents the position of the playerCharacter
     public Vector[] getGridPositions() {
         int offset = 2;
         int bigOffset = 8;

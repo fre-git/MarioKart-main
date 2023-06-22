@@ -4,6 +4,7 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
+// audioPlayer will handle all audio in the game
 public class AudioPlayer {
     private final AudioClip audioSelect = new AudioClip(new File("resources/audio/SelectSomething.mp3").toURI().toString());
     private final AudioClip audioNextScreen = new AudioClip(new File("resources/audio/NextScreen.mp3").toURI().toString());

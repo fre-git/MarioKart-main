@@ -1,8 +1,8 @@
 package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.controller.gamelogic.GameLoop;
-import be.syntra.mariokart.model.Character;
 import be.syntra.mariokart.model.Map;
+import be.syntra.mariokart.model.PlayerCharacter;
 import be.syntra.mariokart.view.AudioPlayer;
 import be.syntra.mariokart.view.RaceGamePane;
 import javafx.event.ActionEvent;
@@ -24,30 +24,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CharacterSelectController implements IController{
+public class CharacterSelectController implements IController {
     private final AudioPlayer audio = new AudioPlayer();
     private Stage stage;
     private Scene scene;
-    private Character character;
+    private PlayerCharacter playerCharacter;
     private Map map;
-    private Text velocityTextField;
+    private Text lapsText;
     private Text elapsedTimeTextField;
+    private Text checkpointsText;
     private GameLoop gameLoop;
 
     public Scene getScene() {
         return scene;
     }
 
-    public Character getCharacter() {
-        return character;
+    public PlayerCharacter getCharacter() {
+        return playerCharacter;
     }
 
     public Map getMap() {
         return map;
-    }
-
-    public Stage getStage() {
-        return stage;
     }
 
     public void setMap(Map map) {
@@ -58,8 +55,12 @@ public class CharacterSelectController implements IController{
         }
     }
 
-    public Text getVelocityTextField() {
-        return velocityTextField;
+    public Text getLapsText() {
+        return lapsText;
+    }
+
+    public Text getCheckpointsText() {
+        return checkpointsText;
     }
 
     public Text getElapsedTimeTextField() {
@@ -69,63 +70,76 @@ public class CharacterSelectController implements IController{
     @FXML
     void SelectCharacter1() {
         audio.playAudioSelect();
-        character = new Character("Mario", 1);
+        playerCharacter = new PlayerCharacter("Mario", 1);
     }
 
     @FXML
     void SelectCharacter2() {
         audio.playAudioSelect();
-        character = new Character("Luigi", 2);
+        playerCharacter = new PlayerCharacter("Luigi", 2);
     }
 
     @FXML
     void SelectCharacter3() {
         audio.playAudioSelect();
-        character = new Character("Toad", 3);
+        playerCharacter = new PlayerCharacter("Toad", 3);
     }
 
     @FXML
     void SelectCharacter4() {
         audio.playAudioSelect();
-        character = new Character("Yoshi", 4);
+        playerCharacter = new PlayerCharacter("Yoshi", 4);
     }
 
     @FXML
     void SelectCharacter5() {
         audio.playAudioSelect();
-        character = new Character("Peach", 5);
+        playerCharacter = new PlayerCharacter("Peach", 5);
     }
 
     @FXML
     void SelectCharacter6() {
         audio.playAudioSelect();
-        character = new Character("Bowser", 6);
+        playerCharacter = new PlayerCharacter("Bowser", 6);
     }
 
+    //starts racegamePane and the actual racegame
     @FXML
     @Override
     public void switchToNextScene(ActionEvent event) throws IOException {
         audio.playAudioNextScreen();
         ArrayList<KeyCode> keyPressedList = new ArrayList<>();
 
-        if (character == null) {
-            character = new Character("Mario", 1);
+        if (playerCharacter == null) {
+            playerCharacter = new PlayerCharacter("Mario", 1);
         }
-
         var root = new RaceGamePane();
+        root.getChildren().addAll(map.getTileMap());
+        root.getChildren().add(playerCharacter.getImageView());
 
-        root.getChildren().addAll(map.getTileMap()); // view
-        root.getChildren().add(character.getImageView()); // view
+        //amount of laps completed text
+        lapsText = new Text("");
+        lapsText.setX(500);
+        lapsText.setY(50);
+        lapsText.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
+        lapsText.setFill(Color.BROWN);
+        lapsText.setStrokeWidth(2);
+        lapsText.setStroke(Color.BLUE);
+        root.getChildren().add(lapsText);
 
-        velocityTextField = new Text("");
-        velocityTextField.setX(50);
-        velocityTextField.setY(50);
-        root.getChildren().add(velocityTextField);
+        //amount of checkpoints completed text
+        checkpointsText = new Text("");
+        checkpointsText.setX(500);
+        checkpointsText.setY(70);
+        checkpointsText.setFont(Font.font("Verdana", FontPosture.REGULAR, 18));
+        checkpointsText.setStrokeWidth(2);
+        checkpointsText.setStroke(Color.BLUE);
+        root.getChildren().add(checkpointsText);
 
+        //time elapsed from start of the race
         elapsedTimeTextField = new Text("");
-        elapsedTimeTextField.setX(370);
+        elapsedTimeTextField.setX(50);
         elapsedTimeTextField.setY(50);
-
         elapsedTimeTextField.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
         elapsedTimeTextField.setFill(Color.BROWN);
         elapsedTimeTextField.setStrokeWidth(2);
@@ -136,85 +150,46 @@ public class CharacterSelectController implements IController{
         scene = new Scene(root, 768, 768);
         stage.setScene(scene);
 
-
+        //starts the gameloop: race & animations
         gameLoop = new GameLoop(this, keyPressedList);
         gameLoop.start();
-
-
-        //new GameLoop(this, keyPressedList).start();
     }
 
     @FXML
+    // stops gameloop & either goes to gameover screen or to SaveplayerScore screen if a new topscore is reached
     public void escape() throws IOException {
-        System.out.println("time: " + elapsedTimeTextField.getText());
-        if(Double.valueOf(elapsedTimeTextField.getText()) < 4){
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/SavePlayerScore.fxml")));
+        Scene scene;
+        //TODO fix correct conditions
+        if (Double.valueOf(elapsedTimeTextField.getText()) > 4) {
+            FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/SavePlayerScore.fxml"));
+            Parent root = loader.load();
+
+            //pass variables to next controller
+            SavePlayerScoreController savePlayerScoreController = loader.getController();
+            savePlayerScoreController.setElapsedTime(Double.parseDouble(elapsedTimeTextField.getText()));
+            savePlayerScoreController.setCharacter(playerCharacter);
+
             scene = new Scene(root, 768, 768);
-            scene.getStylesheets().add("File:resources/css/Style.css");
-
-            //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-            gameLoop.stop();
-
-            stage.setScene(scene);
-            stage.show();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /*
-            System.out.println("lower as 10");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
-            Scene scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
             gameLoop.stop();
-
             stage.setScene(scene);
             stage.show();
-*/
-        } else{
 
-
-
-            System.out.println("higher as 10");
-            //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameOver.fxml")));
-
+        } else {
             FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/GameOver.fxml"));
             Parent root = loader.load();
 
-
+            //pass variables to next controller
             GameOverController gameOverController = loader.getController();
             gameOverController.setMap(map);
-            gameOverController.setCharacter(character);
-
+            gameOverController.setCharacter(playerCharacter);
 
             scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
             gameLoop.stop();
-
             stage.setScene(scene);
             stage.show();
         }
-        /*
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
-        Scene scene = new Scene(root, 768, 768);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-
-        stage.setScene(scene);
-        stage.show();
-
-         */
     }
 }

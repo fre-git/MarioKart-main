@@ -1,9 +1,11 @@
-package be.syntra.mariokart.model.playerscores;
+package be.syntra.mariokart.controller.storage;
+
+import be.syntra.mariokart.model.PlayerScore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class DataStorage implements IDataStorage {
+public class DataStorage implements IDataStorage {
     private List<PlayerScore> topScores = new ArrayList<>();
 
     @Override

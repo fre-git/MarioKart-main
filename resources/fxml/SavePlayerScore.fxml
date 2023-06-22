@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="TopScorePane" prefHeight="768.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.syntra.mariokart.controller.SavePlayerScoreController">
+<AnchorPane fx:id="topScorePane" prefHeight="768.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.syntra.mariokart.controller.SavePlayerScoreController">
    <children>
-      <TextField fx:id="TxtName" layoutX="304.0" layoutY="597.0" />
+      <TextField fx:id="txtName" layoutX="304.0" layoutY="597.0" />
       <Label layoutX="250.0" layoutY="471.0" text="congratulations " textFill="#ee0909">
          <font>
             <Font size="36.0" />
@@ -24,7 +24,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="BtnSave" layoutX="351.0" layoutY="637.0" mnemonicParsing="false" onAction="#saveRecord" text="Save" textFill="#b20b0b">
+      <Button fx:id="btnSave" layoutX="351.0" layoutY="637.0" mnemonicParsing="false" onAction="#saveRecord" text="Save" textFill="#b20b0b">
          <font>
             <Font size="16.0" />
          </font>

@@ -1,4 +1,4 @@
-package be.syntra.mariokart.model.playerscores;
+package be.syntra.mariokart.model;
 
 public class PlayerScore {
     private String name;
@@ -9,6 +9,13 @@ public class PlayerScore {
         this.name = name;
         this.characterName = characterName;
         this.timeToCompleteRace = timeToCompleteRace;
+    }
+
+    @Override
+    // print out player score
+    public String toString(){
+        String playerScore = this.timeToCompleteRace + "  " +  this.name + "  (" +  this.characterName + ")" ;
+        return playerScore;
     }
 
     public String getName() {

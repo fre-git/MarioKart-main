@@ -1,6 +1,6 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.model.Character;
+import be.syntra.mariokart.model.PlayerCharacter;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 
@@ -10,6 +10,6 @@ public interface IController {
 
     Scene getScene();
 
-    Character getCharacter();
+    PlayerCharacter getCharacter();
     void switchToNextScene(ActionEvent event) throws IOException;
 }

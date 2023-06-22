@@ -1,4 +1,4 @@
-package be.syntra.mariokart.controller;
+package be.syntra.mariokart.controller.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;

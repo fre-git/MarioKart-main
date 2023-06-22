@@ -1,6 +1,6 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.model.Character;
+import be.syntra.mariokart.model.PlayerCharacter;
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 import be.syntra.mariokart.model.Map;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 public class RacetrackSelectController implements IController {
     private Map map;
@@ -27,21 +25,20 @@ public class RacetrackSelectController implements IController {
     }
 
     @Override
-    public Character getCharacter() {
+    public PlayerCharacter getCharacter() {
         return null;
     }
 
     @FXML
     @Override
+    //switch to character select screen
     public void switchToNextScene(ActionEvent event) throws IOException {
         audio.playAudioNextScreen();
-
-        //FXMLLoader loader = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/CharacterSelect.fxml")));
-
 
         FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/CharacterSelect.fxml"));
         Parent root = loader.load();
 
+        //pass map variable to next controller
         CharacterSelectController characterController = loader.getController();
         characterController.setMap(this.map);
 

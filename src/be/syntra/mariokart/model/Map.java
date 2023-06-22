@@ -33,7 +33,6 @@ public class Map {
 
                 //?
                 int red = (color >> 16) & 0xFF;
-                System.out.println(red);
                 mapLayout[y][x] = red;
             }
         }

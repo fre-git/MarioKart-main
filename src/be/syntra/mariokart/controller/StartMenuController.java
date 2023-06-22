@@ -1,6 +1,6 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.model.Character;
+import be.syntra.mariokart.model.PlayerCharacter;
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ public class StartMenuController implements IController {
     }
 
     @Override
-    public Character getCharacter() {
+    public PlayerCharacter getCharacter() {
         return null;
     }
 
@@ -39,8 +39,6 @@ public class StartMenuController implements IController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/RacetrackSelect.fxml")));
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 768, 768);

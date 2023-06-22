@@ -1,4 +1,6 @@
-package be.syntra.mariokart.model.playerscores;
+package be.syntra.mariokart.controller.storage;
+
+import be.syntra.mariokart.model.PlayerScore;
 
 import java.util.List;
 

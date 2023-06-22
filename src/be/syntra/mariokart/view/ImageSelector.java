@@ -5,8 +5,8 @@ public class ImageSelector {
     private ImageSelector() {
     }
 
+    //get correct image for chosen playerCharacter
     public static String getImageResource(int image) {
-        // TODO variable inlining nie nodig
         String imageResource;
         switch (image) {
             case 1 -> imageResource = "File:resources/images/Mario.png";

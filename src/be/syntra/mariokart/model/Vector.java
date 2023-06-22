@@ -1,5 +1,6 @@
 package be.syntra.mariokart.model;
 
+//A vector is a quantity or phenomenon that has two independent properties: magnitude and direction.
 public class Vector {
     private double x;
     private double y;
@@ -25,6 +26,7 @@ public class Vector {
         this.y = y;
     }
 
+    //changes the position of the playerCharacter in this application
     public void add(double dx, double dy) {
         this.x += dx;
         this.y += dy;
@@ -36,10 +38,12 @@ public class Vector {
         this.y *= m;
     }
 
+    //returns the length of the vector, for example: speed in this application
     public double getLength() {
         return  Math.sqrt(this.x * this.x + this.y * this.y);
     }
 
+    //used to set the velocity (speed) of the playerCharacter
     public void setLength(double L) {
         double currentLength = this.getLength();
 
@@ -51,6 +55,7 @@ public class Vector {
         }
     }
 
+    // used to set direction where playerCharacter is going
     public void setAngle(double angleDegrees) {
         double length = this.getLength();
         double angleRadians = Math.toRadians(angleDegrees);
