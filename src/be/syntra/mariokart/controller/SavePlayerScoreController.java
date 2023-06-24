@@ -3,7 +3,7 @@ package be.syntra.mariokart.controller;
 import be.syntra.mariokart.Main;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerCharacter;
-import be.syntra.mariokart.controller.storage.DataStorage;
+import be.syntra.mariokart.controller.storage.csvStorageAndReader;
 import be.syntra.mariokart.model.PlayerScore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +19,10 @@ import java.net.URL;
 import java.util.Objects;
 
 public class SavePlayerScoreController {
-    private PlayerCharacter character;
-    private double elapsedTime;
+    PlayerCharacter character;
+    double elapsedTime;
     private Map map;
-    private static final DataStorage topScores = Main.getTopScoresTrack1();
+    static csvStorageAndReader topScores = Main.getTopScores();
 
     @FXML
     private TextField txtName;
@@ -30,7 +30,6 @@ public class SavePlayerScoreController {
     @FXML
     void saveRecord(ActionEvent event) throws IOException {
         String name = txtName.getText();
-
 
         //print results in console
         System.out.println("mijn naam: " + name);
@@ -40,8 +39,12 @@ public class SavePlayerScoreController {
         // creates new playerScore and adds it to topscores list
         PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime);
         topScores.saveRecord(playerScore);
-        topScores.sortTopTen();
+
+
+        //topScores.sortTopTen();
+
         System.out.println(topScores.readAllRecords().toString());
+        System.out.println(topScores.getTopScores(10));
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
