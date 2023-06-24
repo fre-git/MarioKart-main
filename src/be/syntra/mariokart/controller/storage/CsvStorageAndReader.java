@@ -55,9 +55,4 @@ public class CsvStorageAndReader implements IDataStorage {
         allScores.sort(Comparator.comparing(PlayerScore::getTimeToCompleteRace));
         return allScores.stream().limit(amountOfHighscores).toList();
     }
-
-    public void sortTopTen(){
-        topScores.sort(Comparator.comparing(playerScore -> playerScore.getTimeToCompleteRace()));
-    }
-
 }

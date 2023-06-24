@@ -26,4 +26,4 @@ replay_pid*
 #IntelliJ
 .idea
 *.iml
-/out/production/MarioKart-main/csv/topscores.csv
+/out/

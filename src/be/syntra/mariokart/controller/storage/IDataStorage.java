@@ -8,6 +8,5 @@ import java.util.List;
 public interface IDataStorage {
     void saveRecord(PlayerScore playerScore) throws IOException;
 
-
     List<PlayerScore> getTopScores(int amountOfHighscores);
 }
