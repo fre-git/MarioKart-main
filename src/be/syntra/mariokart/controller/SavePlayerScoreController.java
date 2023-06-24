@@ -2,7 +2,7 @@ package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.Main;
 import be.syntra.mariokart.model.PlayerCharacter;
-import be.syntra.mariokart.controller.storage.DataStorage;
+import be.syntra.mariokart.controller.storage.csvStorageAndReader;
 import be.syntra.mariokart.model.PlayerScore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class SavePlayerScoreController {
     PlayerCharacter character;
     String name;
     double elapsedTime;
-    static DataStorage topScores = Main.getTopScores();
+    static csvStorageAndReader topScores = Main.getTopScores();
 
     @FXML
     private TextField txtName;
@@ -37,7 +37,10 @@ public class SavePlayerScoreController {
         // creates new playerScore and adds it to topscores list
         PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime);
         topScores.saveRecord(playerScore);
+
+
         System.out.println(topScores.readAllRecords().toString());
+        System.out.println(topScores.getTopScores(10));
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
