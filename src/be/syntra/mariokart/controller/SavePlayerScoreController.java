@@ -1,9 +1,10 @@
 package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.Main;
+import be.syntra.mariokart.controller.storage.IDataStorage;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerCharacter;
-import be.syntra.mariokart.controller.storage.csvStorageAndReader;
+import be.syntra.mariokart.controller.storage.CsvStorageAndReader;
 import be.syntra.mariokart.model.PlayerScore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class SavePlayerScoreController {
     PlayerCharacter character;
     double elapsedTime;
     private Map map;
-    static csvStorageAndReader topScores = Main.getTopScores();
+    static IDataStorage topScores = new CsvStorageAndReader();
 
     @FXML
     private TextField txtName;
@@ -43,7 +44,7 @@ public class SavePlayerScoreController {
 
         //topScores.sortTopTen();
 
-        System.out.println(topScores.readAllRecords().toString());
+        //System.out.println(topScores.readAllRecords().toString());
         System.out.println(topScores.getTopScores(10));
 
 

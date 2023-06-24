@@ -7,14 +7,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class csvStorageAndReader implements IDataStorage {
-    private List<PlayerScore> topScores = new ArrayList<>();
-    private FileWriter csvFileWriter = new FileWriter("resources/csv/topscores.csv", true);
-    private BufferedWriter bufferedWriter = new BufferedWriter(csvFileWriter);
+public class CsvStorageAndReader implements IDataStorage {
+    private final List<PlayerScore> topScores = new ArrayList<>();
+    private FileWriter csvFileWriter;
+    private final BufferedWriter bufferedWriter;
 
-    private File csvFile = new File("resources/csv/topscores.csv");
+    private final File csvFile = new File("resources/csv/topscores.csv");
 
-    public csvStorageAndReader() throws IOException {
+    public CsvStorageAndReader(){
+        try {
+            csvFileWriter = new FileWriter("resources/csv/topscores.csv", true);
+            bufferedWriter = new BufferedWriter(csvFileWriter);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -25,7 +32,7 @@ public class csvStorageAndReader implements IDataStorage {
         bufferedWriter.flush();
     }
 
-    @Override
+
     public List<PlayerScore> readAllRecords() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
             String Line = bufferedReader.readLine();
@@ -42,9 +49,15 @@ public class csvStorageAndReader implements IDataStorage {
         }
     }
 
+    @Override
     public List<PlayerScore> getTopScores(int amountOfHighscores) {
         List<PlayerScore> allScores = readAllRecords();
         allScores.sort(Comparator.comparing(PlayerScore::getTimeToCompleteRace));
         return allScores.stream().limit(amountOfHighscores).toList();
     }
+
+    public void sortTopTen(){
+        topScores.sort(Comparator.comparing(playerScore -> playerScore.getTimeToCompleteRace()));
+    }
+
 }

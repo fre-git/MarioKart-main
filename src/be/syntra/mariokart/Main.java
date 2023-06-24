@@ -1,6 +1,6 @@
 package be.syntra.mariokart;
 
-import be.syntra.mariokart.controller.storage.csvStorageAndReader;
+import be.syntra.mariokart.controller.storage.CsvStorageAndReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,17 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Main extends Application {
-    public static csvStorageAndReader topScores;
 
-
-    // Try Catch for fileWriter (zelf gegenereerd)
-    static {
-        try {
-            topScores = new csvStorageAndReader();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 //HELLO FROM ROCCO
 
@@ -37,12 +27,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-    public static csvStorageAndReader getTopScores() {
-        return topScores;
-    }
-
-
 }
 
 

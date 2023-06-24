@@ -1,7 +1,8 @@
 package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.Main;
-import be.syntra.mariokart.controller.storage.DataStorage;
+import be.syntra.mariokart.controller.storage.CsvStorageAndReader;
+import be.syntra.mariokart.controller.storage.IDataStorage;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerScore;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TopscoresController implements Initializable {
-    static DataStorage topScoresTrack1 = Main.getTopScoresTrack1();
+    static IDataStorage topScoresTrack1 = new CsvStorageAndReader();
     private Map map;
 
     @FXML
@@ -39,7 +40,7 @@ public class TopscoresController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        topscoresList.getItems().addAll(topScoresTrack1.getTopScores());
+        topscoresList.getItems().addAll(topScoresTrack1.getTopScores(10));
     }
 
 

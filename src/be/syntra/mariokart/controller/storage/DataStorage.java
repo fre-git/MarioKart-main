@@ -15,13 +15,10 @@ public class DataStorage implements IDataStorage {
     }
 
     @Override
-    public List<PlayerScore> readAllRecords() {
+    public List<PlayerScore> getTopScores(int amountOfHighscores) {
         return topScores;
     }
 
-    public List<PlayerScore> getTopScores() {
-        return topScores;
-    }
 
   public void sortTopTen(){
       topScores.sort(Comparator.comparing(playerScore -> playerScore.getTimeToCompleteRace()));
