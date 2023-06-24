@@ -5,25 +5,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class PlayerCharacter {
-
-
-
     private final int  turningSpeed;
     private int passedCheckout = 0;
     private int lapsFinished = 0;
     private boolean isSurfacePassed = false;
     // player position (8 points)
-    private Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
-    private String name;
-    private Vector velocity;
-    private Vector position;
+    private final Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
+    private final String name;
+    private final Vector velocity;
+    private final Vector position;
     private final int forwardSpeed;
     private final int backwardSpeed;
     private double rotation;
-    private int characterSize = 40;
-    private Image image;
+    private final int characterSize = 40;
+    private final Image image;
     private final ImageView imageView;
-    private double height;
+    private final double height;
 
     public PlayerCharacter(String name, int characterImage, int forwardSpeed, int backwardSpeed, int turningSpeed) {
         this.name = name;

@@ -1,13 +1,10 @@
 package be.syntra.mariokart.model;
 
 public class PlayerScore {
-    private String name;
-    private String characterName;
-    private double timeToCompleteRace;
-
-
-
-    private String mapName;
+    private final String name;
+    private final String characterName;
+    private final double timeToCompleteRace;
+    private final String mapName;
 
     public PlayerScore(String name, String characterName, double timeToCompleteRace, String mapName){
         this.name = name;
@@ -37,6 +34,4 @@ public class PlayerScore {
     public String getMapName() {
         return mapName;
     }
-
-
 }

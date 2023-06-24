@@ -43,7 +43,6 @@ public class StartMenuController implements IController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 768, 768);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-
         stage.setScene(scene);
         stage.show();
     }

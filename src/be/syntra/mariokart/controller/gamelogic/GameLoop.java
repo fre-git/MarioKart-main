@@ -24,7 +24,6 @@ public class GameLoop extends AnimationTimer {
     private long lastTime;
     private final int lapsToFinnish = 3;
     private final int numberOfCheckpoints = 3;
-    //public static final float TURNING_SPEED = 2.5f / (1 / 60f);
 
     public GameLoop(IController controller, ArrayList<KeyCode> keyPressedList) {
         audioPlayer.loopEngineAudio();
@@ -41,7 +40,6 @@ public class GameLoop extends AnimationTimer {
         lastTime = currentTimeNano;
         long elapsedTime = System.currentTimeMillis() - startTime;
         double deltaTime = frameDelta / 600_000_000f;
-
 
         controller.getScene().setOnKeyPressed(keyPressed -> {
             // avoid adding duplicates to list & adds pressed key to the keyPressedList
@@ -61,24 +59,22 @@ public class GameLoop extends AnimationTimer {
         //when escape is pressed, go to start screen
         if (keyPressedList.contains(KeyCode.ESCAPE)) {
             try {
-                controller.escape();
                 audioPlayer.stopEngineAudio();
+                audioPlayer.stopDrivingAudio();
+                controller.escape();
                 this.stop();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
-
         PlayerCharacter character = controller.getCharacter();
 
         if (keyPressedList.contains(KeyCode.LEFT)) {
             character.setRotation((int) (-character.getTurningSpeed() * deltaTime));
-            character.setVelocity((int) (-character.getTurningSpeed() * deltaTime));
         }
         if (keyPressedList.contains(KeyCode.RIGHT)) {
             character.setRotation((int) (character.getTurningSpeed() * deltaTime));
-            character.setVelocity((int) (-character.getTurningSpeed() * deltaTime));
         }
         if (keyPressedList.contains(KeyCode.DOWN)) {
             if (!audioPlayer.getDrivingAudio().isPlaying()) {
@@ -123,10 +119,8 @@ public class GameLoop extends AnimationTimer {
 
         // checks on what tile the playerCharacter is
         int tileNumber = CollisionDetector.checkUnderground(
-                (int) (character.getPosition().getX() + character.getHeight() / 2)
-                        / controller.getMap().getSpriteWidth(),
-                (int) (character.getPosition().getY() + character.getHeight()/2)
-                        / controller.getMap().getSpriteWidth(),
+                (int) (character.getPosition().getX() + character.getHeight() / 2) / controller.getMap().getSpriteWidth(),
+                (int) (character.getPosition().getY() + character.getHeight()/2) / controller.getMap().getSpriteWidth(),
                 controller.getMap().getMapLayout());
 
         //if tileNumber = 4 -> bump checkpoint
@@ -149,6 +143,7 @@ public class GameLoop extends AnimationTimer {
         }
         // all laps finnished
         if(character.getLapsFinished() >= lapsToFinnish){
+            audioPlayer.playApplaus();
             audioPlayer.stopEngineAudio();
             try {
                 controller.escape();

@@ -6,6 +6,8 @@ import java.io.File;
 
 // audioPlayer will handle all audio in the game
 public class AudioPlayer {
+    private final AudioClip applause = new AudioClip(new File("resources/audio/cheerAndApplaus.wav").toURI().toString());
+
     private final AudioClip audioSelect = new AudioClip(new File("resources/audio/SelectSomething.mp3").toURI().toString());
     private final AudioClip audioNextScreen = new AudioClip(new File("resources/audio/NextScreen.mp3").toURI().toString());
     private final AudioClip drivingAudio = new AudioClip(new File("resources/audio/DrivingShort.wav").toURI().toString());
@@ -38,6 +40,10 @@ public class AudioPlayer {
 
     public AudioClip getDrivingAudio() {
         return drivingAudio;
+    }
+
+    public void playApplaus(){
+        applause.play();
     }
 
 }

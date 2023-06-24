@@ -70,14 +70,12 @@ public class CharacterSelectController implements IController {
     void SelectCharacter1() {
         audio.playAudioSelect();
         playerCharacter = new Mario();
-        //playerCharacter = new PlayerCharacter("Mario", 1);
     }
 
     @FXML
     void SelectCharacter2() {
         audio.playAudioSelect();
         playerCharacter = new Luigi();
-                //PlayerCharacter("Luigi", 2);
     }
 
     @FXML
@@ -104,7 +102,7 @@ public class CharacterSelectController implements IController {
         playerCharacter = new Bowser();
     }
 
-    //starts racegamePane and the actual racegame
+    //starts race game
     @FXML
     @Override
     public void switchToNextScene(ActionEvent event) {
@@ -157,43 +155,25 @@ public class CharacterSelectController implements IController {
     }
 
     @FXML
-    // stops gameloop & either goes to gameover screen or to SaveplayerScore screen if a new topscore is reached
+    // stops gameloop to SaveplayerScore screen
     public void escape() throws IOException {
         gameLoop.stop();
         audio.stopDrivingAudio();
         Scene scene;
-        //TODO fix correct conditions
-        if (Double.parseDouble(elapsedTimeTextField.getText()) > 4) {
-            FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/SavePlayerScore.fxml"));
-            Parent root = loader.load();
 
-            //pass variables to SavePlayerController
-            SavePlayerScoreController savePlayerScoreController = loader.getController();
-            savePlayerScoreController.setElapsedTime(Double.parseDouble(elapsedTimeTextField.getText()));
-            savePlayerScoreController.setCharacter(playerCharacter);
-            savePlayerScoreController.setMap(map);
+        FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/SavePlayerScore.fxml"));
+        Parent root = loader.load();
 
-            scene = new Scene(root, 768, 768);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
+        //pass variables to SavePlayerController
+        SavePlayerScoreController savePlayerScoreController = loader.getController();
+        savePlayerScoreController.setElapsedTime(Double.parseDouble(elapsedTimeTextField.getText()));
+        savePlayerScoreController.setCharacter(playerCharacter);
+        savePlayerScoreController.setMap(map);
 
-            stage.setScene(scene);
-            stage.show();
+        scene = new Scene(root, 768, 768);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
-        } else {
-            FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/GameOver.fxml"));
-            Parent root = loader.load();
-
-            //pass variables to next controller
-            GameOverController gameOverController = loader.getController();
-            gameOverController.setMap(map);
-            gameOverController.setCharacter(playerCharacter);
-
-            scene = new Scene(root, 768, 768);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-
-            //gameLoop.stop();
-            stage.setScene(scene);
-            stage.show();
-        }
+        stage.setScene(scene);
+        stage.show();
     }
 }

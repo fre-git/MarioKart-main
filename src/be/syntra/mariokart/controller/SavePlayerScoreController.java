@@ -1,6 +1,5 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.Main;
 import be.syntra.mariokart.controller.storage.IDataStorage;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerCharacter;
@@ -32,25 +31,11 @@ public class SavePlayerScoreController {
     void saveRecord(ActionEvent event) throws IOException {
         String name = txtName.getText();
 
-        //print results in console
-        System.out.println("mijn naam: " + name);
-        System.out.println(character.getName());
-        System.out.println(elapsedTime);
-
         // creates new playerScore and adds it to topscores list
         PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime, map.getMapName());
         topScores.saveRecord(playerScore);
 
-
-        //topScores.sortTopTen();
-
-        //System.out.println(topScores.readAllRecords().toString());
-        //System.out.println(topScores.getTopScores(10));
-
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        //Parent root = FXMLLoader.load(new URL("File:resources/fxml/Topscores.fxml"));
-
         FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/Topscores.fxml"));
         Parent root = loader.load();
 
@@ -58,13 +43,8 @@ public class SavePlayerScoreController {
         TopscoresController topscoresController = loader.getController();
         topscoresController.setMap(this.map);
 
-
-
-
-        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Topscores.fxml")));
         Scene scene = new Scene(root, 768, 768);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-
         stage.setScene(scene);
         stage.show();
     }

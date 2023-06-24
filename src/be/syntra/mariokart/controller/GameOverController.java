@@ -1,7 +1,6 @@
 package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.model.PlayerCharacter;
-import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +16,6 @@ import java.util.Objects;
 public class GameOverController implements IController{
     private final AudioPlayer audio = new AudioPlayer();
     private PlayerCharacter characterPlayer;
-    private Map map;
 
     @FXML
     @Override
@@ -28,7 +26,6 @@ public class GameOverController implements IController{
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
         Scene scene = new Scene(root, 768, 768);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-
         stage.setScene(scene);
         stage.show();
     }
@@ -43,11 +40,4 @@ public class GameOverController implements IController{
         return characterPlayer;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
-    public void setCharacter(PlayerCharacter characterPlayer) {
-        this.characterPlayer = characterPlayer;
-    }
 }
