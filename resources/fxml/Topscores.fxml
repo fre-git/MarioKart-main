@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="topscorePane" prefHeight="768.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.syntra.mariokart.controller.TopscoresController">
    <children>
-      <ListView fx:id="topscoresList" layoutX="284.0" layoutY="359.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="topscoresList" layoutX="198.0" layoutY="361.0" prefHeight="200.0" prefWidth="375.0" />
       <Label layoutX="224.0" layoutY="233.0" text="TOPSCORES" textFill="#d70202">
          <font>
             <Font size="60.0" />

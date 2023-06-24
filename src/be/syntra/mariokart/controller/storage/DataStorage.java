@@ -15,7 +15,7 @@ public class DataStorage implements IDataStorage {
     }
 
     @Override
-    public List<PlayerScore> getTopScores(int amountOfHighscores) {
+    public List<PlayerScore> getTopScores(int amountOfHighscores, String mapName) {
         return topScores;
     }
 

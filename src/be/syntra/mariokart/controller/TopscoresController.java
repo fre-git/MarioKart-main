@@ -1,10 +1,10 @@
 package be.syntra.mariokart.controller;
 
-import be.syntra.mariokart.Main;
 import be.syntra.mariokart.controller.storage.CsvStorageAndReader;
 import be.syntra.mariokart.controller.storage.IDataStorage;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerScore;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TopscoresController implements Initializable {
-    static IDataStorage topScoresTrack1 = new CsvStorageAndReader();
+    private final IDataStorage topScores = new CsvStorageAndReader();
+
     private Map map;
 
     @FXML
@@ -29,6 +30,8 @@ public class TopscoresController implements Initializable {
 
     @FXML
     public void goToStartScreen(ActionEvent event) throws IOException {
+
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
         Scene scene = new Scene(root, 768, 768);
@@ -38,10 +41,14 @@ public class TopscoresController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        topscoresList.getItems().addAll(topScoresTrack1.getTopScores(10));
+
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> topscoresList.getItems().addAll(topScores.getTopScores(10, map.getMapName())));
+    }
 }

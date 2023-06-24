@@ -38,18 +38,28 @@ public class SavePlayerScoreController {
         System.out.println(elapsedTime);
 
         // creates new playerScore and adds it to topscores list
-        PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime);
+        PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime, map.getMapName());
         topScores.saveRecord(playerScore);
 
 
         //topScores.sortTopTen();
 
         //System.out.println(topScores.readAllRecords().toString());
-        System.out.println(topScores.getTopScores(10));
+        //System.out.println(topScores.getTopScores(10));
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(new URL("File:resources/fxml/Topscores.fxml"));
+        //Parent root = FXMLLoader.load(new URL("File:resources/fxml/Topscores.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/Topscores.fxml"));
+        Parent root = loader.load();
+
+        //pass map variable to next controller
+        TopscoresController topscoresController = loader.getController();
+        topscoresController.setMap(this.map);
+
+
+
 
         //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Topscores.fxml")));
         Scene scene = new Scene(root, 768, 768);

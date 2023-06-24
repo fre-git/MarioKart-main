@@ -27,7 +27,7 @@ public class CsvStorageAndReader implements IDataStorage {
     @Override
     public void saveRecord(PlayerScore playerScore) throws IOException {
         topScores.add(playerScore);
-        bufferedWriter.write(playerScore.getName() + ";" + playerScore.getCharacterName() + ";" + playerScore.getTimeToCompleteRace());
+        bufferedWriter.write(playerScore.getName() + ";" + playerScore.getCharacterName() + ";" + playerScore.getTimeToCompleteRace() + ";" + playerScore.getMapName());
         bufferedWriter.newLine();
         bufferedWriter.flush();
     }
@@ -39,7 +39,7 @@ public class CsvStorageAndReader implements IDataStorage {
             List<PlayerScore> playerScores = new ArrayList<>();
             while (Line != null) {
                 String[] colum = Line.split(";");
-                PlayerScore playerScore = new PlayerScore(colum[0], colum[1], Double.valueOf(colum[2]));
+                PlayerScore playerScore = new PlayerScore(colum[0], colum[1], Double.valueOf(colum[2]), colum[3]);
                 playerScores.add(playerScore);
                 Line = bufferedReader.readLine();
             }
@@ -50,9 +50,11 @@ public class CsvStorageAndReader implements IDataStorage {
     }
 
     @Override
-    public List<PlayerScore> getTopScores(int amountOfHighscores) {
-        List<PlayerScore> allScores = readAllRecords();
-        allScores.sort(Comparator.comparing(PlayerScore::getTimeToCompleteRace));
-        return allScores.stream().limit(amountOfHighscores).toList();
+    public List<PlayerScore> getTopScores(int amountOfHighscores, String mapName) {
+        return readAllRecords().stream()
+                .filter(playerScore -> playerScore.getMapName().equals(mapName))
+                .limit(amountOfHighscores)
+                .sorted(Comparator.comparing(PlayerScore::getTimeToCompleteRace))
+                .toList();
     }
 }

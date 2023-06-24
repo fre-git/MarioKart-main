@@ -5,16 +5,21 @@ public class PlayerScore {
     private String characterName;
     private double timeToCompleteRace;
 
-    public PlayerScore(String name, String characterName, double timeToCompleteRace){
+
+
+    private String mapName;
+
+    public PlayerScore(String name, String characterName, double timeToCompleteRace, String mapName){
         this.name = name;
         this.characterName = characterName;
         this.timeToCompleteRace = timeToCompleteRace;
+        this.mapName = mapName;
     }
 
     @Override
     // print out player score
     public String toString(){
-        return this.timeToCompleteRace + "  " +  this.name + "  (" +  this.characterName + ")";
+        return "[" + this.mapName + "] " + this.timeToCompleteRace + "  "  + "  (" +  this.characterName + ")    " +   this.name;
     }
 
     public String getName() {
@@ -27,6 +32,10 @@ public class PlayerScore {
 
     public double getTimeToCompleteRace() {
         return timeToCompleteRace;
+    }
+
+    public String getMapName() {
+        return mapName;
     }
 
 

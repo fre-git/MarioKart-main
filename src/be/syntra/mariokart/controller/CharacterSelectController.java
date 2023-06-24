@@ -171,7 +171,7 @@ public class CharacterSelectController implements IController {
             SavePlayerScoreController savePlayerScoreController = loader.getController();
             savePlayerScoreController.setElapsedTime(Double.parseDouble(elapsedTimeTextField.getText()));
             savePlayerScoreController.setCharacter(playerCharacter);
-            //savePlayerScoreController.setMap(map);
+            savePlayerScoreController.setMap(map);
 
             scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
