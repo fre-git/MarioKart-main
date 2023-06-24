@@ -54,11 +54,13 @@ public class RacetrackSelectController implements IController {
     void selectTrack1() {
         audio.playAudioSelect();
         map = new Map("File:resources/images/Backgroundpixell.png");
+        map.setMapName("track1");
     }
 
     @FXML
     void selectTrack2() {
         audio.playAudioSelect();
         map = new Map("File:resources/images/Backgroundpixell3Colors.png");
+        map.setMapName("track2");
     }
 }

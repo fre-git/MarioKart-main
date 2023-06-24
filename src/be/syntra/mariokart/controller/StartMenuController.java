@@ -33,7 +33,7 @@ public class StartMenuController implements IController {
     public void switchToNextScene(ActionEvent event) {
         audio.playAudioNextScreen();
 
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(new URL("File:resources/fxml/RacetrackSelect.fxml"));
         } catch (IOException e) {

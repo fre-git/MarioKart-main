@@ -3,10 +3,11 @@ package be.syntra.mariokart.controller.storage;
 import be.syntra.mariokart.model.PlayerScore;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class DataStorage implements IDataStorage {
-    private List<PlayerScore> topScores = new ArrayList<>();
+    private final List<PlayerScore> topScores = new ArrayList<>();
 
     @Override
     public void saveRecord(PlayerScore playerScore) {
@@ -17,4 +18,12 @@ public class DataStorage implements IDataStorage {
     public List<PlayerScore> readAllRecords() {
         return topScores;
     }
+
+    public List<PlayerScore> getTopScores() {
+        return topScores;
+    }
+
+  public void sortTopTen(){
+      topScores.sort(Comparator.comparing(playerScore -> playerScore.getTimeToCompleteRace()));
+  }
 }

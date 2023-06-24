@@ -2,6 +2,7 @@ package be.syntra.mariokart.controller.gamelogic;
 
 import be.syntra.mariokart.controller.CharacterSelectController;
 import be.syntra.mariokart.controller.IController;
+import be.syntra.mariokart.model.PlayerCharacter;
 import be.syntra.mariokart.view.AudioPlayer;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class GameLoop extends AnimationTimer {
 
     AudioPlayer audioPlayer = new AudioPlayer();
-    private CharacterSelectController controller;
+    private final CharacterSelectController controller;
 
     //input is added in an arrayList for smoother input calculation
     private final ArrayList<KeyCode> keyPressedList;
@@ -21,9 +22,9 @@ public class GameLoop extends AnimationTimer {
     //time at start of the race
     private long startTime = System.currentTimeMillis();
     private long lastTime;
-    private int lapsToFinnish = 1;
-    private int numberOfCheckpoints = 3;
-    public static final float TURNING_SPEED = 2.5f / (1 / 60f);
+    private final int lapsToFinnish = 3;
+    private final int numberOfCheckpoints = 3;
+    //public static final float TURNING_SPEED = 2.5f / (1 / 60f);
 
     public GameLoop(IController controller, ArrayList<KeyCode> keyPressedList) {
         audioPlayer.loopEngineAudio();
@@ -68,24 +69,27 @@ public class GameLoop extends AnimationTimer {
             }
         }
 
+
+        PlayerCharacter character = controller.getCharacter();
+
         if (keyPressedList.contains(KeyCode.LEFT)) {
-            controller.getCharacter().setRotation((int) (-TURNING_SPEED * deltaTime));
-            controller.getCharacter().setVelocity((int) (-TURNING_SPEED * deltaTime));
+            character.setRotation((int) (-character.getTurningSpeed() * deltaTime));
+            character.setVelocity((int) (-character.getTurningSpeed() * deltaTime));
         }
         if (keyPressedList.contains(KeyCode.RIGHT)) {
-            controller.getCharacter().setRotation((int) (TURNING_SPEED * deltaTime));
-            controller.getCharacter().setVelocity((int) (-TURNING_SPEED * deltaTime));
+            character.setRotation((int) (character.getTurningSpeed() * deltaTime));
+            character.setVelocity((int) (-character.getTurningSpeed() * deltaTime));
         }
         if (keyPressedList.contains(KeyCode.DOWN)) {
             if (!audioPlayer.getDrivingAudio().isPlaying()) {
                 audioPlayer.playDrivingAudio();
             }
-
             //set the backward speed of the playerCharacter
-            controller.getCharacter().setVelocity(SpeedCalculator.calculateCharacterSpeed(controller.getCharacter(), controller.getMap(), controller.getCharacter().getBackwardSpeed()));
+            character.setVelocity(SpeedCalculator.calculateCharacterSpeed(character,
+                    controller.getMap(), character.getBackwardSpeed()));
 
             //set the direction of the playerCharacter driving backwards
-            controller.getCharacter().getVelocity().setAngle(controller.getCharacter().getRotation() + 180);
+            character.getVelocity().setAngle(character.getRotation() + 180);
         }
         if (keyPressedList.contains(KeyCode.UP)) {
             if (!audioPlayer.getDrivingAudio().isPlaying()) {
@@ -93,55 +97,60 @@ public class GameLoop extends AnimationTimer {
             }
 
             //set forward speed of playerCharacter
-            controller.getCharacter().setVelocity(SpeedCalculator.calculateCharacterSpeed(controller.getCharacter(), controller.getMap(), controller.getCharacter().getForwardSpeed()));
+            character.setVelocity(SpeedCalculator.calculateCharacterSpeed(character,
+                    controller.getMap(), character.getForwardSpeed()));
             //set direction for playerCharacter
-            controller.getCharacter().getVelocity().setAngle(controller.getCharacter().getRotation());
+            character.getVelocity().setAngle(character.getRotation());
 
         } else if (!keyPressedList.contains(KeyCode.DOWN)) { // not pressing down
-            controller.getCharacter().setVelocity(0);
+            character.setVelocity(0);
         }
 
         //update position & velocity of character & then redraws it
-        controller.getCharacter().update(deltaTime);
-        controller.getCharacter().draw();
+        character.update(deltaTime);
+        character.draw();
 
         //set texts for gameScreen
-        controller.getLapsText().setText("LAPS: " + controller.getCharacter().getLapsFinished() + "/" + lapsToFinnish);
-        controller.getCheckpointsText().setText("checkpoints: " + controller.getCharacter().getAmountOfCheckPointsPassed() + "/" + numberOfCheckpoints);
+        controller.getLapsText().setText("LAPS: " + character.getLapsFinished() + "/" + lapsToFinnish);
+        controller.getCheckpointsText().setText("checkpoints: " + character.getAmountOfCheckPointsPassed() + "/" + numberOfCheckpoints);
         controller.getElapsedTimeTextField().setText(String.valueOf((double) elapsedTime / 1000));
 
         checkCheckpoints();
     }
 
     public void checkCheckpoints() {
+        PlayerCharacter character = controller.getCharacter();
+
         // checks on what tile the playerCharacter is
         int tileNumber = CollisionDetector.checkUnderground(
-                (int) controller.getCharacter().getPosition().getX() / controller.getMap().getSpriteWidth(),
-                (int) controller.getCharacter().getPosition().getY() / controller.getMap().getSpriteWidth(),
+                (int) (character.getPosition().getX() + character.getHeight() / 2)
+                        / controller.getMap().getSpriteWidth(),
+                (int) (character.getPosition().getY() + character.getHeight()/2)
+                        / controller.getMap().getSpriteWidth(),
                 controller.getMap().getMapLayout());
 
         //if tileNumber = 4 -> bump checkpoint
         if (tileNumber == 4) {
-            if (controller.getCharacter().getSurfacePassed() == false) {
-                controller.getCharacter().bumpCheckpointsPassed();
-                controller.getCharacter().setSurfacePassed(true);
+            if (!character.getSurfacePassed()) {
+                character.bumpCheckpointsPassed();
+                character.setSurfacePassed(true);
             }
         //if tilenumber = 3 -> bump lap
         } else if (tileNumber == 3) {
-            if (controller.getCharacter().getAmountOfCheckPointsPassed() >= 3) {
-                if (controller.getCharacter().getSurfacePassed() == false) {
-                    controller.getCharacter().bumpLapFinished();
-                    controller.getCharacter().setSurfacePassed(true);
-                    controller.getCharacter().resetCheckpoints();
+            if (character.getAmountOfCheckPointsPassed() >= 3) {
+                if (!character.getSurfacePassed()) {
+                    character.bumpLapFinished();
+                    character.setSurfacePassed(true);
+                    character.resetCheckpoints();
                 }
             }
         } else {
-            controller.getCharacter().setSurfacePassed(false);
+            character.setSurfacePassed(false);
         }
         // all laps finnished
-        if(controller.getCharacter().getLapsFinished() >= lapsToFinnish){
+        if(character.getLapsFinished() >= lapsToFinnish){
+            audioPlayer.stopEngineAudio();
             try {
-                audioPlayer.stopEngineAudio();
                 controller.escape();
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -9,13 +9,11 @@ public class SpeedCalculator {
         int grassCounter = 0;
         int sandCounter = 0;
         double speed;
-
         //takes 8 points of character as positions, the more of these points are in grass or sand,
         // the slower the car will drive
         for (Vector gridPosition : characterPlayer.getGridPositions()) {
             int tileNumber = CollisionDetector.checkUnderground((int) gridPosition.getX() / map.getSpriteWidth(),
                     (int) gridPosition.getY() / map.getSpriteWidth(), map.getMapLayout());
-
             if (tileNumber == 0) {
                 grassCounter++;
             } else if (tileNumber == 2) {

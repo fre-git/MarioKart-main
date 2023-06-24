@@ -31,7 +31,7 @@
             <Button fx:id="Button6" mnemonicParsing="false" onAction="#SelectCharacter6" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label alignment="BOTTOM_LEFT" layoutX="269.0" layoutY="230.0" text="Choose characterPlayer" textFill="#d70909">
+      <Label alignment="BOTTOM_LEFT" layoutX="198.0" layoutY="226.0" text="Choose characterPlayer" textFill="#d70909">
          <font>
             <Font size="36.0" />
          </font>

@@ -14,32 +14,20 @@ public class PlayerScore {
     @Override
     // print out player score
     public String toString(){
-        String playerScore = this.timeToCompleteRace + "  " +  this.name + "  (" +  this.characterName + ")" ;
-        return playerScore;
+        return this.timeToCompleteRace + "  " +  this.name + "  (" +  this.characterName + ")";
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCharacterName() {
         return characterName;
-    }
-
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
     }
 
     public double getTimeToCompleteRace() {
         return timeToCompleteRace;
     }
 
-    public void setTimeToCompleteRace(double timeToCompleteRace) {
-        this.timeToCompleteRace = timeToCompleteRace;
-    }
 
 }

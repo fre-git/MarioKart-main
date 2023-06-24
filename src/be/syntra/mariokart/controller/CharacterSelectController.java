@@ -3,6 +3,7 @@ package be.syntra.mariokart.controller;
 import be.syntra.mariokart.controller.gamelogic.GameLoop;
 import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerCharacter;
+import be.syntra.mariokart.model.characters.*;
 import be.syntra.mariokart.view.AudioPlayer;
 import be.syntra.mariokart.view.RaceGamePane;
 import javafx.event.ActionEvent;
@@ -35,10 +36,12 @@ public class CharacterSelectController implements IController {
     private Text checkpointsText;
     private GameLoop gameLoop;
 
+    @Override
     public Scene getScene() {
         return scene;
     }
 
+    @Override
     public PlayerCharacter getCharacter() {
         return playerCharacter;
     }
@@ -48,11 +51,7 @@ public class CharacterSelectController implements IController {
     }
 
     public void setMap(Map map) {
-        if (map == null) {
-            this.map = new Map("File:resources/images/Backgroundpixell.png");
-        } else {
-            this.map = map;
-        }
+        this.map = Objects.requireNonNullElseGet(map, () -> new Map("File:resources/images/Backgroundpixell.png"));
     }
 
     public Text getLapsText() {
@@ -70,48 +69,50 @@ public class CharacterSelectController implements IController {
     @FXML
     void SelectCharacter1() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Mario", 1);
+        playerCharacter = new Mario();
+        //playerCharacter = new PlayerCharacter("Mario", 1);
     }
 
     @FXML
     void SelectCharacter2() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Luigi", 2);
+        playerCharacter = new Luigi();
+                //PlayerCharacter("Luigi", 2);
     }
 
     @FXML
     void SelectCharacter3() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Toad", 3);
+        playerCharacter = new Toad();
     }
 
     @FXML
     void SelectCharacter4() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Yoshi", 4);
+        playerCharacter = new Yoshi();
     }
 
     @FXML
     void SelectCharacter5() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Peach", 5);
+        playerCharacter = new Peach();
     }
 
     @FXML
     void SelectCharacter6() {
         audio.playAudioSelect();
-        playerCharacter = new PlayerCharacter("Bowser", 6);
+        playerCharacter = new Bowser();
     }
 
     //starts racegamePane and the actual racegame
     @FXML
     @Override
-    public void switchToNextScene(ActionEvent event) throws IOException {
+    public void switchToNextScene(ActionEvent event) {
         audio.playAudioNextScreen();
         ArrayList<KeyCode> keyPressedList = new ArrayList<>();
 
         if (playerCharacter == null) {
-            playerCharacter = new PlayerCharacter("Mario", 1);
+            playerCharacter = new Mario();
         }
         var root = new RaceGamePane();
         root.getChildren().addAll(map.getTileMap());
@@ -158,20 +159,23 @@ public class CharacterSelectController implements IController {
     @FXML
     // stops gameloop & either goes to gameover screen or to SaveplayerScore screen if a new topscore is reached
     public void escape() throws IOException {
+        gameLoop.stop();
+        audio.stopDrivingAudio();
         Scene scene;
         //TODO fix correct conditions
-        if (Double.valueOf(elapsedTimeTextField.getText()) > 4) {
+        if (Double.parseDouble(elapsedTimeTextField.getText()) > 4) {
             FXMLLoader loader = new FXMLLoader(new URL("File:resources/fxml/SavePlayerScore.fxml"));
             Parent root = loader.load();
 
-            //pass variables to next controller
+            //pass variables to SavePlayerController
             SavePlayerScoreController savePlayerScoreController = loader.getController();
             savePlayerScoreController.setElapsedTime(Double.parseDouble(elapsedTimeTextField.getText()));
             savePlayerScoreController.setCharacter(playerCharacter);
+            //savePlayerScoreController.setMap(map);
 
             scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
-            gameLoop.stop();
+
             stage.setScene(scene);
             stage.show();
 
@@ -187,7 +191,7 @@ public class CharacterSelectController implements IController {
             scene = new Scene(root, 768, 768);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
-            gameLoop.stop();
+            //gameLoop.stop();
             stage.setScene(scene);
             stage.show();
         }

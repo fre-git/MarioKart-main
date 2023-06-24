@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Main extends Application {
-    public static DataStorage topScores = new DataStorage();
-
+    public static DataStorage topScoresTrack1 = new DataStorage();
 //HELLO FROM ROCCO
 
     @Override
@@ -28,9 +27,11 @@ public class Main extends Application {
         }
     }
 
-    public static DataStorage getTopScores() {
-        return topScores;
+    public static DataStorage getTopScoresTrack1() {
+        return topScoresTrack1;
     }
+
+
 
 
 }

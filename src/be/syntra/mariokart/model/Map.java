@@ -8,6 +8,7 @@ import java.util.List;
 public class Map {
     private Image mapImage;
     private Image spriteSheet = new Image("File:resources/images/Tilesspritesheet3Colors.png");
+    private String mapName;
 
     int spriteWidth = 64;
     int spriteHeight = 64;
@@ -30,15 +31,12 @@ public class Map {
         for (int y = 0; y < mapLayout.length; y++) {
             for (int x = 0; x < mapLayout[y].length; x++) {
                 int color = mapReader.getArgb(x, y);
-
-                //?
                 int red = (color >> 16) & 0xFF;
                 mapLayout[y][x] = red;
             }
         }
 
         for (int i = 0; i < sprites.length; i++) {
-
             int x = spriteWidth * i;
             int y = 0;
 
@@ -73,5 +71,13 @@ public class Map {
 
     public int[][] getMapLayout() {
         return mapLayout;
+    }
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
     }
 }

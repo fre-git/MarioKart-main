@@ -1,6 +1,7 @@
 package be.syntra.mariokart.controller;
 
 import be.syntra.mariokart.Main;
+import be.syntra.mariokart.model.Map;
 import be.syntra.mariokart.model.PlayerCharacter;
 import be.syntra.mariokart.controller.storage.DataStorage;
 import be.syntra.mariokart.model.PlayerScore;
@@ -14,20 +15,22 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 public class SavePlayerScoreController {
-    PlayerCharacter character;
-    String name;
-    double elapsedTime;
-    static DataStorage topScores = Main.getTopScores();
+    private PlayerCharacter character;
+    private double elapsedTime;
+    private Map map;
+    private static final DataStorage topScores = Main.getTopScoresTrack1();
 
     @FXML
     private TextField txtName;
 
     @FXML
     void saveRecord(ActionEvent event) throws IOException {
-        name = txtName.getText();
+        String name = txtName.getText();
+
 
         //print results in console
         System.out.println("mijn naam: " + name);
@@ -37,11 +40,14 @@ public class SavePlayerScoreController {
         // creates new playerScore and adds it to topscores list
         PlayerScore playerScore = new PlayerScore(name, character.getName(), elapsedTime);
         topScores.saveRecord(playerScore);
+        topScores.sortTopTen();
         System.out.println(topScores.readAllRecords().toString());
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/StartMenu.fxml")));
+        Parent root = FXMLLoader.load(new URL("File:resources/fxml/Topscores.fxml"));
+
+        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Topscores.fxml")));
         Scene scene = new Scene(root, 768, 768);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/Style.css")).toExternalForm());
 
@@ -55,5 +61,9 @@ public class SavePlayerScoreController {
 
     public void setElapsedTime(double elapsedTime) {
         this.elapsedTime = elapsedTime;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

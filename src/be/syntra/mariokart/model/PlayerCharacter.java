@@ -6,29 +6,40 @@ import javafx.scene.image.ImageView;
 
 public class PlayerCharacter {
 
+
+
+    private final int  turningSpeed;
     private int passedCheckout = 0;
     private int lapsFinished = 0;
     private boolean isSurfacePassed = false;
     // player position (8 points)
     private Vector[] gridPositions = {new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0), new Vector(0, 0)};
-
     private String name;
     private Vector velocity;
     private Vector position;
-    private final int forwardSpeed = 120;
-    private final int backwardSpeed = 80;
+    private final int forwardSpeed;
+    private final int backwardSpeed;
     private double rotation;
     private int characterSize = 40;
     private Image image;
-    private ImageView imageView;
+    private final ImageView imageView;
+    private double height;
 
-    public PlayerCharacter(String name, int characterImage) {
+    public PlayerCharacter(String name, int characterImage, int forwardSpeed, int backwardSpeed, int turningSpeed) {
         this.name = name;
         this.rotation = 0;
         this.velocity = new Vector();
         this.position = new Vector(200, 90);
         this.image = new Image(ImageSelector.getImageResource(characterImage), characterSize, characterSize, false, false);
         imageView = new ImageView(this.image);
+        this.height = image.getHeight();
+        this.forwardSpeed = forwardSpeed;
+        this.backwardSpeed = backwardSpeed;
+        this.turningSpeed = turningSpeed;
+    }
+
+    public int getTurningSpeed() {
+        return turningSpeed;
     }
 
     public String getName() {
@@ -71,12 +82,12 @@ public class PlayerCharacter {
         this.rotation += rotation;
     }
 
-    public void setPosition(Vector position) {
-        this.position = position;
-    }
-
     public ImageView getImageView() {
         return this.imageView;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
     public void update(double deltaTime) {
@@ -98,7 +109,7 @@ public class PlayerCharacter {
         this.passedCheckout++;
     }
 
-    public void resetCheckpoints(){
+    public void resetCheckpoints() {
         this.passedCheckout = 0;
     }
 
