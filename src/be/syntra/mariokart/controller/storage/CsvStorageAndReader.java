@@ -53,8 +53,8 @@ public class CsvStorageAndReader implements IDataStorage {
     public List<PlayerScore> getTopScores(int amountOfHighscores, String mapName) {
         return readAllRecords().stream()
                 .filter(playerScore -> playerScore.getMapName().equals(mapName))
-                .limit(amountOfHighscores)
                 .sorted(Comparator.comparing(PlayerScore::getTimeToCompleteRace))
+                .limit(amountOfHighscores)
                 .toList();
     }
 }
