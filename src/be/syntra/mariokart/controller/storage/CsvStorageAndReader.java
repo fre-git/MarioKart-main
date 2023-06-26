@@ -21,7 +21,6 @@ public class CsvStorageAndReader implements IDataStorage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
