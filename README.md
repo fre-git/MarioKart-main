@@ -1,4 +1,4 @@
-First year school project 
+First year school project with JavaFX
 
 
 
